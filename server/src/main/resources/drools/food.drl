@@ -76,3 +76,90 @@ rule "roast chicken"
         beers.addAll($beerService.findByType(BeerType.LAGER));
         System.out.println(beers);
 end
+
+
+
+rule "soft cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
+        beers.addAll($beerService.findByType(BeerType.LAGER));
+        System.out.println(beers);
+end
+
+rule "curd cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "curd cheese" || name == "mozzarella" || name == "provolone"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
+        System.out.println(beers);
+end
+
+rule "spreadable cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        System.out.println(beers);
+end
+
+rule "washed-rind cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
+        System.out.println(beers);
+end
+
+rule "semi-hard cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.IPA));
+        System.out.println(beers);
+end
+
+rule "hard cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.STRONG));
+        System.out.println(beers);
+end
+
+rule "marbled cheese"
+    agenda-group "cheese-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        beers.addAll($beerService.findByType(BeerType.ALE));
+        System.out.println(beers);
+end
