@@ -1,0 +1,78 @@
+package drools;
+import rs.beerpicker.server.model.*
+import rs.beerpicker.server.service.abstraction.*
+import java.util.List
+import java.util.ArrayList
+dialect  "mvel"
+
+rule "turkey"
+    agenda-group "meat-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.MEAT && name == "turkey")
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.MALT, BeerStyle.DARK));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
+        System.out.println(beers);
+end
+
+rule "burger"
+    agenda-group "meat-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.MEAT && name == "burger")
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.LAGER, BeerStyle.PILSNER));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.WHEAT));
+        System.out.println(beers);
+end
+
+rule "steak"
+    agenda-group "meat-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.MEAT && name == "steak")
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.RED));
+        System.out.println(beers);
+end
+
+rule "pulled pork"
+    agenda-group "meat-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.MEAT && name == "pulled pork")
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
+        System.out.println(beers);
+end
+
+rule "chicken wings"
+    agenda-group "meat-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.MEAT && name == "chicken wings")
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByType(BeerType.ALE));
+        System.out.println(beers);
+end
+
+rule "roast chicken"
+    agenda-group "meat-food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.MEAT && name == "roast chicken")
+    then
+        List<Beer> beers = new ArrayList<>();
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
+        beers.addAll($beerService.findByType(BeerType.LAGER));
+        System.out.println(beers);
+end
