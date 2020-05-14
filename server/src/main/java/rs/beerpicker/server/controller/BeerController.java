@@ -14,6 +14,7 @@ import java.util.List;
 public class BeerController {
     @Autowired
     private BeerService beerService;
+
     @GetMapping(value = "/")
     public ResponseEntity<List<Beer>> get() {
         HttpStatus status;
@@ -27,6 +28,7 @@ public class BeerController {
         }
         return new ResponseEntity<>(beers, status);
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Beer> findById(@PathVariable Long id) {
         HttpStatus status;
@@ -38,6 +40,7 @@ public class BeerController {
         }
         return new ResponseEntity<>(beer, status);
     }
+
     @PostMapping(value = "/create")
     public ResponseEntity<Beer> create(@RequestBody Beer beer) {
         HttpStatus status;
@@ -49,6 +52,7 @@ public class BeerController {
         }
         return new ResponseEntity<>(created, status);
     }
+
     @PostMapping(value = "/update")
     public ResponseEntity<Beer> update(@RequestBody Beer beer) {
         HttpStatus status;
@@ -60,6 +64,7 @@ public class BeerController {
         }
         return new ResponseEntity<>(updated, status);
     }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         HttpStatus status;

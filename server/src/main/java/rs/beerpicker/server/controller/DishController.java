@@ -14,6 +14,7 @@ import java.util.List;
 public class DishController {
     @Autowired
     private DishService dishService;
+
     @GetMapping(value = "/")
     public ResponseEntity<List<Dish>> get() {
         HttpStatus status;
@@ -27,6 +28,7 @@ public class DishController {
         }
         return new ResponseEntity<>(dishes, status);
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Dish> findById(@PathVariable Long id) {
         HttpStatus status;
@@ -38,6 +40,7 @@ public class DishController {
         }
         return new ResponseEntity<>(dish, status);
     }
+
     @PostMapping(value = "/create")
     public ResponseEntity<Dish> create(@RequestBody Dish dish) {
         HttpStatus status;
@@ -49,6 +52,7 @@ public class DishController {
         }
         return new ResponseEntity<>(created, status);
     }
+
     @PostMapping(value = "/update")
     public ResponseEntity<Dish> update(@RequestBody Dish dish) {
         HttpStatus status;
@@ -60,6 +64,7 @@ public class DishController {
         }
         return new ResponseEntity<>(updated, status);
     }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         HttpStatus status;

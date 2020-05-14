@@ -14,19 +14,21 @@ import java.util.List;
 public class FoodController {
     @Autowired
     private FoodService foodService;
+
     @GetMapping(value = "/")
     public ResponseEntity<List<Food>> get() {
         HttpStatus status;
-        List<Food> foodes = foodService.findAll();
-        if (foodes == null) {
+        List<Food> foods = foodService.findAll();
+        if (foods == null) {
             status = HttpStatus.NOT_FOUND;
-        } else if (foodes.size() == 0) {
+        } else if (foods.size() == 0) {
             status = HttpStatus.NO_CONTENT;
         } else {
             status = HttpStatus.FOUND;
         }
-        return new ResponseEntity<>(foodes, status);
+        return new ResponseEntity<>(foods, status);
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Food> findById(@PathVariable Long id) {
         HttpStatus status;
@@ -38,6 +40,7 @@ public class FoodController {
         }
         return new ResponseEntity<>(food, status);
     }
+
     @PostMapping(value = "/create")
     public ResponseEntity<Food> create(@RequestBody Food food) {
         HttpStatus status;
@@ -49,6 +52,7 @@ public class FoodController {
         }
         return new ResponseEntity<>(created, status);
     }
+
     @PostMapping(value = "/update")
     public ResponseEntity<Food> update(@RequestBody Food food) {
         HttpStatus status;
@@ -60,6 +64,7 @@ public class FoodController {
         }
         return new ResponseEntity<>(updated, status);
     }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         HttpStatus status;

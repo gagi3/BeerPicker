@@ -12,6 +12,7 @@ import java.util.List;
 public class BeerServiceImpl implements BeerService {
     @Autowired
     private BeerRepository beerRepository;
+
     @Override
     public List<Beer> findAll() {
         return beerRepository.findAll();

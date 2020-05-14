@@ -12,6 +12,7 @@ import java.util.List;
 public class DishServiceImpl implements DishService {
     @Autowired
     private DishRepository dishRepository;
+
     @Override
     public List<Dish> findAll() {
         return dishRepository.findAll();

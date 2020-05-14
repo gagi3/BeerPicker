@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface FoodService {
     List<Food> findAll();
+
     Food findById(Long id);
+
     Food create(Food beer);
+
     Food update(Food beer);
+
     Boolean delete(Long id);
 }

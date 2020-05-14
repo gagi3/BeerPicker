@@ -12,6 +12,7 @@ import java.util.List;
 public class MealServiceImpl implements MealService {
     @Autowired
     private MealRepository mealRepository;
+
     @Override
     public List<Meal> findAll() {
         return mealRepository.findAll();
