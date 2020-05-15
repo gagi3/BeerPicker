@@ -9,9 +9,9 @@ public interface MealService {
 
     Meal findById(Long id);
 
-    Meal create(Meal beer);
+    Meal create(Meal meal);
 
-    Meal update(Meal beer);
+    Meal update(Meal meal);
 
     Boolean delete(Long id);
 }

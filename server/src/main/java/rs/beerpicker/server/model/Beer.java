@@ -19,7 +19,7 @@ public class Beer {
     @Column(nullable = false)
     private Double strength;
     @ElementCollection(targetClass = BeerFlavour.class)
-    @Column
+    @CollectionTable
     @Enumerated(EnumType.STRING)
     private List<BeerFlavour> flavours;
     @Column(nullable = false)

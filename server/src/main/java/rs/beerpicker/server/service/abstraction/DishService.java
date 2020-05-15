@@ -9,9 +9,9 @@ public interface DishService {
 
     Dish findById(Long id);
 
-    Dish create(Dish beer);
+    Dish create(Dish dish);
 
-    Dish update(Dish beer);
+    Dish update(Dish dish);
 
     Boolean delete(Long id);
 }

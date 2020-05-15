@@ -17,13 +17,13 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
 
     List<Beer> findByType(BeerType type);
 
-    List<Beer> findByFlavours(List<BeerFlavour> flavour);
+    List<Beer> findByFlavoursIn(List<BeerFlavour> flavour);
 
-    List<Beer> findByNameAndTypeAndStyleAndFlavours(String name, BeerType type, BeerStyle style, List<BeerFlavour> flavours);
+    List<Beer> findByNameAndTypeAndStyleAndFlavoursIn(String name, BeerType type, BeerStyle style, List<BeerFlavour> flavours);
 
-    List<Beer> findByTypeAndStyleAndFlavours(BeerType type, BeerStyle style, List<BeerFlavour> flavours);
+    List<Beer> findByTypeAndStyleAndFlavoursIn(BeerType type, BeerStyle style, List<BeerFlavour> flavours);
 
-    List<Beer> findByStyleAndFlavours(BeerStyle style, List<BeerFlavour> flavours);
+    List<Beer> findByStyleAndFlavoursIn(BeerStyle style, List<BeerFlavour> flavours);
 
-    List<Beer> findByTypeAndFlavours(BeerType type, List<BeerFlavour> flavours);
+    List<Beer> findByTypeAndFlavoursIn(BeerType type, List<BeerFlavour> flavours);
 }

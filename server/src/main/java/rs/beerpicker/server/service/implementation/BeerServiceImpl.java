@@ -64,26 +64,26 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public List<Beer> findByFlavours(List<BeerFlavour> flavours) {
-        return beerRepository.findByFlavours(flavours);
+        return beerRepository.findByFlavoursIn(flavours);
     }
 
     @Override
     public List<Beer> findByNameAndTypeAndStyleAndFlavours(String name, BeerType type, BeerStyle style, List<BeerFlavour> flavours) {
-        return beerRepository.findByNameAndTypeAndStyleAndFlavours(name, type, style, flavours);
+        return beerRepository.findByNameAndTypeAndStyleAndFlavoursIn(name, type, style, flavours);
     }
 
     @Override
     public List<Beer> findByTypeAndStyleAndFlavours(BeerType type, BeerStyle style, List<BeerFlavour> flavours) {
-        return beerRepository.findByTypeAndStyleAndFlavours(type, style, flavours);
+        return beerRepository.findByTypeAndStyleAndFlavoursIn(type, style, flavours);
     }
 
     @Override
     public List<Beer> findByStyleAndFlavours(BeerStyle style, List<BeerFlavour> flavours) {
-        return beerRepository.findByStyleAndFlavours(style, flavours);
+        return beerRepository.findByStyleAndFlavoursIn(style, flavours);
     }
 
     @Override
     public List<Beer> findByTypeAndFlavours(BeerType type, List<BeerFlavour> flavours) {
-        return beerRepository.findByTypeAndFlavours(type, flavours);
+        return beerRepository.findByTypeAndFlavoursIn(type, flavours);
     }
 }

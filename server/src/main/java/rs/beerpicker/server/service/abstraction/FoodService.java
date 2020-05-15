@@ -9,9 +9,9 @@ public interface FoodService {
 
     Food findById(Long id);
 
-    Food create(Food beer);
+    Food create(Food food);
 
-    Food update(Food beer);
+    Food update(Food food);
 
     Boolean delete(Long id);
 }
