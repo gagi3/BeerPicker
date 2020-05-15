@@ -8,7 +8,7 @@ dialect  "mvel"
 global java.util.List beers;
 
 rule "turkey"
-    agenda-group "meat-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "turkey")
@@ -22,7 +22,7 @@ rule "turkey"
 end
 
 rule "burger"
-    agenda-group "meat-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "burger")
@@ -36,7 +36,7 @@ rule "burger"
 end
 
 rule "steak"
-    agenda-group "meat-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "steak")
@@ -49,7 +49,7 @@ rule "steak"
 end
 
 rule "pulled pork"
-    agenda-group "meat-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "pulled pork")
@@ -62,7 +62,7 @@ rule "pulled pork"
 end
 
 rule "chicken wings"
-    agenda-group "meat-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "chicken wings")
@@ -74,7 +74,7 @@ rule "chicken wings"
 end
 
 rule "roast chicken"
-    agenda-group "meat-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "roast chicken")
@@ -89,7 +89,7 @@ end
 
 
 rule "soft cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
@@ -102,7 +102,7 @@ rule "soft cheese"
 end
 
 rule "curd cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "curd cheese" || name == "mozzarella" || name == "provolone"))
@@ -114,7 +114,7 @@ rule "curd cheese"
 end
 
 rule "spreadable cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
@@ -128,7 +128,7 @@ rule "spreadable cheese"
 end
 
 rule "washed-rind cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
@@ -142,7 +142,7 @@ rule "washed-rind cheese"
 end
 
 rule "semi-hard cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
@@ -155,7 +155,7 @@ rule "semi-hard cheese"
 end
 
 rule "hard cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
@@ -168,7 +168,7 @@ rule "hard cheese"
 end
 
 rule "marbled cheese"
-    agenda-group "cheese-food"
+    agenda-group "food"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))

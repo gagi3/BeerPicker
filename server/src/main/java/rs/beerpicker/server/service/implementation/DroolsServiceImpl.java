@@ -28,7 +28,7 @@ public class DroolsServiceImpl implements DroolsService {
         kieSession.setGlobal("beers", new ArrayList<Beer>());
         System.out.println(food.getName());
         kieSession.insert(food);
-        kieSession.getAgenda().getAgendaGroup("meat-food").setFocus();
+        kieSession.getAgenda().getAgendaGroup("food").setFocus();
         kieSession.insert(this.beerService);
         System.out.println(kieSession.fireAllRules());
 
