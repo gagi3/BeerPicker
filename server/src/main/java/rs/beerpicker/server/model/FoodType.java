@@ -8,5 +8,7 @@ public enum FoodType {
     SEAFOOD,
     FISH,
     DOUGH,
-    PASTA
+    PASTA,
+    DAIRY,
+    CHOCOLATE
 }

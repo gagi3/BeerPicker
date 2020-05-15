@@ -86,4 +86,34 @@ public class BeerServiceImpl implements BeerService {
     public List<Beer> findByTypeAndFlavours(BeerType type, List<BeerFlavour> flavours) {
         return beerRepository.findByTypeAndFlavoursIn(type, flavours);
     }
+
+    @Override
+    public List<Beer> findByTypeAndStrengthGreaterThanEqual(BeerType type, Double strength) {
+        return beerRepository.findByTypeAndStrengthGreaterThanEqual(type, strength);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndStrengthLessThanEqual(BeerType type, Double strength) {
+        return beerRepository.findByTypeAndStrengthLessThanEqual(type, strength);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndStrengthBetween(BeerType type, Double low, Double top) {
+        return beerRepository.findByTypeAndStrengthBetween(type, low, top);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndStyleAndStrengthGreaterThanEqual(BeerType type, BeerStyle style, Double strength) {
+        return beerRepository.findByTypeAndStyleAndStrengthGreaterThanEqual(type, style, strength);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndStyleAndStrengthLessThanEqual(BeerType type, BeerStyle style, Double strength) {
+        return beerRepository.findByTypeAndStyleAndStrengthLessThanEqual(type, style, strength);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndStyleAndStrengthBetween(BeerType type, BeerStyle style, Double low, Double top) {
+        return beerRepository.findByTypeAndStyleAndStrengthBetween(type, style, low, top);
+    }
 }

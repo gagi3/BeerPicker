@@ -3,9 +3,12 @@ import rs.beerpicker.server.model.*
 import rs.beerpicker.server.service.abstraction.*
 import java.util.List
 import java.util.ArrayList
+import java.util.Arrays
 dialect  "mvel"
 
 global java.util.List beers;
+
+// MEATS
 
 rule "turkey"
     agenda-group "food"
@@ -86,7 +89,7 @@ rule "roast chicken"
         System.out.println(beers);
 end
 
-
+// CHEESES
 
 rule "soft cheese"
     agenda-group "food"
@@ -178,4 +181,156 @@ rule "marbled cheese"
         beers.addAll($beerService.findByType(BeerType.ALE));
         System.out.println("STOUTS, ALES");
         System.out.println(beers);
+end
+
+// SEAFOOD
+
+rule "lobster"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.SEAFOOD && name == "lobster")
+    then
+        //List<Beer> beers = new ArrayList();
+        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
+        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
+        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
+        System.out.println("CITRUS, PILSNERS, IPAS");
+        System.out.println(beers);
+end
+
+rule "mussels"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.SEAFOOD && name == "mussels")
+    then
+        //List<Beer> beers = new ArrayList();
+        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
+        System.out.println("WHEATS");
+        System.out.println(beers);
+end
+
+rule "oysters"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.SEAFOOD && name == "oysters")
+    then
+        //List<Beer> beers = new ArrayList();
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        System.out.println("STOUTS");
+        System.out.println(beers);
+end
+
+rule "crab"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.SEAFOOD && name == "crab")
+    then
+        //List<Beer> beers = new ArrayList();
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        System.out.println("STOUTS");
+        System.out.println(beers);
+end
+
+rule "clams"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.SEAFOOD && name == "clams")
+    then
+        //List<Beer> beers = new ArrayList();
+        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
+        System.out.println("CITRUS");
+        System.out.println(beers);
+end
+
+// FISH
+
+rule "salmon"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FISH && name == "salmon")
+    then
+        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        System.out.println("IPAS");
+end
+
+rule "sushi"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FISH && name == "sushi")
+    then
+        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
+        beers.addAll($beerService.findByTypeAndStrengthLessThanEqual(BeerType.ALE, 4.5));
+        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
+        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
+        System.out.println("IPAS, LIGHT ALES, CITRUS, PILSNERS");
+end
+
+// FRUIT
+
+rule "apple"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FRUIT && name == "apple")
+    then
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
+        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CARAMEL)));
+        System.out.println("BROWN ALES, CARAMEL");
+end
+
+rule "strawberries"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FRUIT && name == "strawberries")
+    then
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        System.out.println("STOUT");
+end
+
+rule "orange"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FRUIT && name == "orange")
+    then
+        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
+        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
+        System.out.println("WHEAT, CITRUS");
+end
+
+// CHOCOLATE
+
+rule "dark chocolate"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FRUIT && name == "dark chocolate")
+    then
+        beers.addAll($beerService.findByType(BeerType.STOUT));
+        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
+        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
+        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CHOCOLATE, BeerFlavour.COFFEE, BeerFlavour.CITRUS)));
+        System.out.println("STOUT, PILSNER, WHEAT, CHOCOLATE, COFFEE, CITRUS");
+end
+
+rule "milk chocolate"
+    agenda-group "food"
+    when
+        $beerService: BeerService();
+        Food(type == FoodType.FRUIT && name == "dark chocolate")
+    then
+        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
+        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
+        System.out.println("PALE ALES, IPA");
 end

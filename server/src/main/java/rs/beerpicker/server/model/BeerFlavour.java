@@ -31,5 +31,6 @@ public enum BeerFlavour {
     PEAR,
     BERRIES,
     FUNKY,
-    MUSHROOMS
+    MUSHROOMS,
+    CITRUS
 }
