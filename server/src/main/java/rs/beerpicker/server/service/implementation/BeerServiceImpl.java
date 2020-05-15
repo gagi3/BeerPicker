@@ -3,6 +3,7 @@ package rs.beerpicker.server.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.beerpicker.server.model.Beer;
+import rs.beerpicker.server.model.BeerFlavour;
 import rs.beerpicker.server.model.BeerStyle;
 import rs.beerpicker.server.model.BeerType;
 import rs.beerpicker.server.repository.BeerRepository;
@@ -59,5 +60,30 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public List<Beer> findByType(BeerType type) {
         return beerRepository.findByType(type);
+    }
+
+    @Override
+    public List<Beer> findByFlavours(List<BeerFlavour> flavours) {
+        return beerRepository.findByFlavours(flavours);
+    }
+
+    @Override
+    public List<Beer> findByNameAndTypeAndStyleAndFlavours(String name, BeerType type, BeerStyle style, List<BeerFlavour> flavours) {
+        return beerRepository.findByNameAndTypeAndStyleAndFlavours(name, type, style, flavours);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndStyleAndFlavours(BeerType type, BeerStyle style, List<BeerFlavour> flavours) {
+        return beerRepository.findByTypeAndStyleAndFlavours(type, style, flavours);
+    }
+
+    @Override
+    public List<Beer> findByStyleAndFlavours(BeerStyle style, List<BeerFlavour> flavours) {
+        return beerRepository.findByStyleAndFlavours(style, flavours);
+    }
+
+    @Override
+    public List<Beer> findByTypeAndFlavours(BeerType type, List<BeerFlavour> flavours) {
+        return beerRepository.findByTypeAndFlavours(type, flavours);
     }
 }
