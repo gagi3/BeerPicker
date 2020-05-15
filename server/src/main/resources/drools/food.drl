@@ -5,13 +5,16 @@ import java.util.List
 import java.util.ArrayList
 dialect  "mvel"
 
+global java.util.List beers;
+
 rule "turkey"
     agenda-group "meat-food"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "turkey")
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
+        beers.clear();
         beers.addAll($beerService.findByTypeAndStyle(BeerType.MALT, BeerStyle.DARK));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
         System.out.println("DARK MALTS, AMBER ALES");
@@ -24,7 +27,7 @@ rule "burger"
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "burger")
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.LAGER, BeerStyle.PILSNER));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.WHEAT));
@@ -38,7 +41,7 @@ rule "steak"
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "steak")
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByType(BeerType.STOUT));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.RED));
         System.out.println("RED ALES, STOUTS");
@@ -51,7 +54,7 @@ rule "pulled pork"
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "pulled pork")
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByType(BeerType.STOUT));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
         System.out.println("PALE ALES, STOUTS");
@@ -64,7 +67,7 @@ rule "chicken wings"
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "chicken wings")
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByType(BeerType.ALE));
         System.out.println("ALES");
         System.out.println(beers);
@@ -76,7 +79,7 @@ rule "roast chicken"
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "roast chicken")
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
         beers.addAll($beerService.findByType(BeerType.LAGER));
         System.out.println("AMBER ALES, LAGERS");
@@ -91,7 +94,7 @@ rule "soft cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
         beers.addAll($beerService.findByType(BeerType.LAGER));
         System.out.println("WHEATS, LAGERS");
@@ -104,7 +107,7 @@ rule "curd cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "curd cheese" || name == "mozzarella" || name == "provolone"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
         System.out.println("WHEATS");
         System.out.println(beers);
@@ -116,7 +119,7 @@ rule "spreadable cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
         beers.addAll($beerService.findByType(BeerType.STOUT));
@@ -130,7 +133,7 @@ rule "washed-rind cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
@@ -144,7 +147,7 @@ rule "semi-hard cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.IPA));
         System.out.println("PILSNERS, INDIAN PALE ALES");
@@ -157,7 +160,7 @@ rule "hard cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByType(BeerType.STOUT));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.STRONG));
         System.out.println("STOUTS, STRONG ALES");
@@ -170,7 +173,7 @@ rule "marbled cheese"
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))
     then
-        List<Beer> beers = new ArrayList<>();
+        //List<Beer> beers = new ArrayList();
         beers.addAll($beerService.findByType(BeerType.STOUT));
         beers.addAll($beerService.findByType(BeerType.ALE));
         System.out.println("STOUTS, ALES");
