@@ -18,7 +18,6 @@ rule "turkey"
     then
         //List<Beer> beers = new ArrayList();
         beers.clear();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.MALT, BeerStyle.DARK));
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
         System.out.println("DARK MALTS, AMBER ALES");
         System.out.println(beers);
