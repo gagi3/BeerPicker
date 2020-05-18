@@ -33,6 +33,13 @@ public class DroolsServiceImpl implements DroolsService {
         System.out.println(kieSession.fireAllRules());
 
         kieSession.destroy();
-        return kieSession.getGlobal("beers");
+        List<Beer> beers = (ArrayList<Beer>) kieSession.getGlobal("beers");
+        List<Beer> list = new ArrayList<>();
+        for (Beer b : beers) {
+            if (!list.contains(b)) {
+                list.add(b);
+            }
+        }
+        return list;
     }
 }

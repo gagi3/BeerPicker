@@ -327,7 +327,7 @@ rule "milk chocolate"
     agenda-group "food"
     when
         $beerService: BeerService();
-        Food(type == FoodType.CHOCOLATE && name == "dark chocolate")
+        Food(type == FoodType.CHOCOLATE && name == "milk chocolate")
     then
         beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
         beers.addAll($beerService.findByStyle(BeerStyle.IPA));
