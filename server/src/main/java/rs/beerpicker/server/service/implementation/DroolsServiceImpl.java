@@ -26,11 +26,13 @@ public class DroolsServiceImpl implements DroolsService {
     public Object recommendByFood(Food food) {
         KieSession kieSession = kieContainer.newKieSession("BeerPickerSession");
         kieSession.setGlobal("beers", new ArrayList<Beer>());
-        System.out.println(food.getName());
+        System.out.println("===");
+        System.out.println("Food name: " + food.getName() + ", group: " + food.getType().toString() + ".");
+        System.out.println("Searching for the following type(s), style(s) and/or flavour(s): ");
         kieSession.insert(food);
         kieSession.getAgenda().getAgendaGroup("food").setFocus();
         kieSession.insert(this.beerService);
-        System.out.println(kieSession.fireAllRules());
+        System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
 
         kieSession.destroy();
         List<Beer> beers = (ArrayList<Beer>) kieSession.getGlobal("beers");
@@ -40,6 +42,7 @@ public class DroolsServiceImpl implements DroolsService {
                 list.add(b);
             }
         }
+        System.out.println("Got " + list.size() + " result(s).");
         return list;
     }
 }
