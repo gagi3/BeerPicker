@@ -4,6 +4,7 @@ import { TokenStorageService } from './auth/token-storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SignInRequest } from './auth/sign-in-request';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,9 @@ export class AppComponent {
   activeLinkIndex = -1;
   user = false;
   constructor(private router: Router, private token: TokenStorageService, private dialog: MatDialog) {
+    console.log(this.token.getUsername());
     if (this.token.getUsername() !== null) {
+      console.log('true?');
       this.user = true;
       this.token.getAuthorities().forEach(auth => {
         if (auth === 'ROLE_ADMIN') {
@@ -74,13 +77,22 @@ export class AppComponent {
 
   }
   login() {
-    this.dialog.open(LoginComponent);
-    console.log('opened!')
+    const dialogRef = this.dialog.open(LoginComponent, {
+      data: new SignInRequest()
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      location.reload();
+    });
+  }
+  logout() {
+    const dialogRef = this.token.signOut();
     location.reload();
   }
   register() {
-    this.dialog.open(RegisterComponent);
-    location.reload();
+    const dialogRef = this.dialog.open(RegisterComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      location.reload();
+    });
   }
   ngOnInit(): void {
     this.router.events.subscribe((res) => {

@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { AuthService } from '../auth/auth.service';
 import { SignInRequest } from '../auth/sign-in-request';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   private loggedIn = false;
   private loginFailed = false;
   request: SignInRequest = new SignInRequest();
 
-  constructor(private token: TokenStorageService, private auth: AuthService, private dialogRef: MatDialogRef<LoginComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private token: TokenStorageService, private auth: AuthService, private dialogRef: MatDialogRef<LoginComponent>) { }
 
   ngOnInit() {
+    console.log('token: ' + this.token.getToken());
     if (this.token.getToken !== null) {
       this.loggedIn = true;
-      this.dialogRef.close();
+      // this.dialogRef.close();
     }
   }
   login() {

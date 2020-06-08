@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     if (this.token.getToken !== null) {
-      this.dialogRef.close();
+      // this.dialogRef.close();
+
     }
   }
   register() {
