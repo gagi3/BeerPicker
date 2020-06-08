@@ -1,0 +1,16 @@
+<h3 mat-dialog-title>LOGIN</h3>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Email address" type="email" [(ngModel)]="request.username" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" type="password" [(ngModel)]="request.password" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="request.username !== undefined && request.password !== undefined && request.password.length > 8"
+    mat-button mat-flat-button matTooltip="Sign in" color="primary" (click)="login()">LOGIN</button>
+  <button mat-button mat-flat-button matTooltip="Cancel" color="accent" (click)="cancel()">CANCEL</button>
+</div>

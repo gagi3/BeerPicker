@@ -11,6 +11,7 @@ import rs.beerpicker.server.service.abstraction.DroolsService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class DroolsServiceImpl implements DroolsService {
     private final KieContainer kieContainer;

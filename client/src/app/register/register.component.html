@@ -1,0 +1,25 @@
+<h3 mat-dialog-title>REGISTER</h3>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Email address" type="email" [(ngModel)]="request.username" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" type="password" [(ngModel)]="request.password" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>First name</mat-label>
+    <input matInput placeholder="First name" type="text" [(ngModel)]="request.firstName" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Last name</mat-label>
+    <input matInput placeholder="Last name" type="text" [(ngModel)]="request.lastName" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button
+    *ngIf="request.username !== undefined && request.password !== undefined && request.password.length > 8 && request.firstName !== undefined && request.lastName !== undefined"
+    mat-button mat-flat-button matTooltip="Register" color="primary" (click)="register()">SIGN UP</button>
+  <button mat-button mat-flat-button matTooltip="Cancel" color="accent" (click)="cancel()">CANCEL</button>
+</div>

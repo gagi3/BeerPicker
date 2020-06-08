@@ -28,10 +28,14 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
     List<Beer> findByTypeAndFlavoursIn(BeerType type, List<BeerFlavour> flavours);
 
     List<Beer> findByTypeAndStrengthGreaterThanEqual(BeerType type, Double strength);
+
     List<Beer> findByTypeAndStrengthLessThanEqual(BeerType type, Double strength);
+
     List<Beer> findByTypeAndStrengthBetween(BeerType type, Double low, Double top);
 
     List<Beer> findByTypeAndStyleAndStrengthGreaterThanEqual(BeerType type, BeerStyle style, Double strength);
+
     List<Beer> findByTypeAndStyleAndStrengthLessThanEqual(BeerType type, BeerStyle style, Double strength);
+
     List<Beer> findByTypeAndStyleAndStrengthBetween(BeerType type, BeerStyle style, Double low, Double top);
 }
