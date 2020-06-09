@@ -7,11 +7,13 @@ import java.util.Arrays
 dialect  "mvel"
 
 global java.util.List beers;
+global java.util.List recommendations;
 
 // MEATS
 
 rule "turkey"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "turkey")
@@ -24,7 +26,8 @@ rule "turkey"
 end
 
 rule "burger"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "burger")
@@ -38,7 +41,8 @@ rule "burger"
 end
 
 rule "steak"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "steak")
@@ -51,7 +55,8 @@ rule "steak"
 end
 
 rule "pulled pork"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "pulled pork")
@@ -64,7 +69,8 @@ rule "pulled pork"
 end
 
 rule "chicken wings"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "chicken wings")
@@ -76,7 +82,8 @@ rule "chicken wings"
 end
 
 rule "roast chicken"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "roast chicken")
@@ -91,7 +98,8 @@ end
 // CHEESES
 
 rule "soft cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
@@ -104,7 +112,8 @@ rule "soft cheese"
 end
 
 rule "curd cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "curd cheese" || name == "mozzarella" || name == "provolone"))
@@ -116,7 +125,8 @@ rule "curd cheese"
 end
 
 rule "spreadable cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
@@ -130,7 +140,8 @@ rule "spreadable cheese"
 end
 
 rule "washed-rind cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
@@ -144,7 +155,8 @@ rule "washed-rind cheese"
 end
 
 rule "semi-hard cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
@@ -157,7 +169,8 @@ rule "semi-hard cheese"
 end
 
 rule "hard cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
@@ -170,7 +183,8 @@ rule "hard cheese"
 end
 
 rule "marbled cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))
@@ -185,7 +199,8 @@ end
 // SEAFOOD
 
 rule "lobster"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "lobster")
@@ -199,7 +214,8 @@ rule "lobster"
 end
 
 rule "mussels"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "mussels")
@@ -211,7 +227,8 @@ rule "mussels"
 end
 
 rule "oysters"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "oysters")
@@ -223,7 +240,8 @@ rule "oysters"
 end
 
 rule "crab"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "crab")
@@ -235,7 +253,8 @@ rule "crab"
 end
 
 rule "clams"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "clams")
@@ -249,7 +268,8 @@ end
 // FISH
 
 rule "salmon"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "salmon")
@@ -262,7 +282,8 @@ rule "salmon"
 end
 
 rule "sushi"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "sushi")
@@ -277,7 +298,8 @@ end
 // FRUIT
 
 rule "apple"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "apple")
@@ -288,17 +310,19 @@ rule "apple"
 end
 
 rule "strawberries"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "strawberries")
+        $beer: Beer(type == BeerType.STOUT);
     then
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("STOUT");
+        insert($beer)
 end
 
 rule "orange"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "orange")
@@ -311,20 +335,19 @@ end
 // CHOCOLATE
 
 rule "dark chocolate"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
-        $beerService: BeerService();
+        $beerService: BeerService()
+        $beer: Beer(type == BeerType.STOUT);
         Food(type == FoodType.CHOCOLATE && name == "dark chocolate")
     then
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CHOCOLATE, BeerFlavour.COFFEE, BeerFlavour.CITRUS)));
-        System.out.println("STOUT, PILSNER, WHEAT, CHOCOLATE, COFFEE, CITRUS");
+        insert($beer)
 end
 
 rule "milk chocolate"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHOCOLATE && name == "milk chocolate")

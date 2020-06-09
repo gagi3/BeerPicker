@@ -6,24 +6,22 @@ import java.util.ArrayList
 import java.util.Arrays
 dialect  "mvel"
 
-global java.util.List beers;
-global java.util.List recommendations;
-
-rule "dish"
+rule "dessert"
+salience -2
     when
-        $beerService: BeerService();
-        Dish(type == DishType.DESSERT)
+        $beer: Beer(strength > 5)
+//        $food: Food($type: type, $name: name)
+        $dish: Dish(type == DishType.DESSERT)
     then
-//        if (beers == null || beers.size() > 0) {
-//            beers = $beerService.findAll();
-//        }
-//        recommendations.addAll($beerService.filter(beers, null, null, Arrays.asList(BeerFlavour.FRUIT, BeerFlavour.BANANA, BeerFlavour.APPLE, BeerFlavour.BERRIES, BeerFlavour.DRIED_CHERRIES, BeerFlavour.PEAR)));
-//        recommendations.addAll($beerService.filter(beers, BeerType.STOUT, null, null));
-//        recommendations.addAll($beerService.filter(beers, null, BeerStyle.IPA, null));
-//        beers.clear();
-//
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.FRUIT, BeerFlavour.BANANA, BeerFlavour.APPLE, BeerFlavour.BERRIES, BeerFlavour.DRIED_CHERRIES, BeerFlavour.PEAR)));
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-//        System.out.println("DARK MALTS, AMBER ALES");
+        delete($beer);
+end
+
+rule "sweet"
+salience -2
+    when
+        $beer: Beer(flavours contains BeerFlavour.OATS)
+        $dish: Dish(sweetnessIndex > 3)
+//        $food: Food($type: type, $name: name)
+    then
+        delete($beer);
 end

@@ -17,6 +17,12 @@ public interface BeerService {
     Beer update(Beer beer);
 
     List<Beer> filter(List<Beer> input, BeerType type, BeerStyle style, List<BeerFlavour> flavours);
+    List<Beer> filter(List<Beer> input, BeerType type, List<BeerFlavour> flavours);
+    List<Beer> filter(List<Beer> input, BeerStyle style, List<BeerFlavour> flavours);
+    List<Beer> filter(List<Beer> input, BeerType type, BeerStyle style);
+    List<Beer> filter(List<Beer> input, BeerType type);
+    List<Beer> filter(List<Beer> input, BeerStyle style);
+    List<Beer> filter(List<Beer> input, List<BeerFlavour> flavours);
 
     Boolean delete(Long id);
 
