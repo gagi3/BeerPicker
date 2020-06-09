@@ -20,6 +20,8 @@ public class Dish {
     private String name;
     @Column(nullable = false)
     private DishType type;
+    @Column
+    private Cuisine cuisine;
     @OneToMany
     private List<Food> ingredients;
     @Column

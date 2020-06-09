@@ -5,6 +5,7 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.beerpicker.server.model.Beer;
+import rs.beerpicker.server.model.Dish;
 import rs.beerpicker.server.model.Food;
 import rs.beerpicker.server.service.abstraction.BeerService;
 import rs.beerpicker.server.service.abstraction.DroolsService;
@@ -37,6 +38,31 @@ public class DroolsServiceImpl implements DroolsService {
 
         kieSession.destroy();
         List<Beer> beers = (ArrayList<Beer>) kieSession.getGlobal("beers");
+        List<Beer> list = new ArrayList<>();
+        for (Beer b : beers) {
+            if (!list.contains(b)) {
+                list.add(b);
+            }
+        }
+        System.out.println("Got " + list.size() + " result(s).");
+        return list;
+    }
+
+    @Override
+    public Object recommendByDish(Dish dish) {
+        KieSession kieSession = kieContainer.newKieSession("BeerPickerSession");
+        kieSession.setGlobal("beers", new ArrayList<Beer>());
+        System.out.println("===");
+        System.out.println("Dish name: " + dish.getName() + ", group: " + dish.getType().toString() + ".");
+        System.out.println("Searching for the following type(s), style(s) and/or flavour(s): ");
+        kieSession.insert(dish);
+//        kieSession.getAgenda().getAgendaGroup("food").setFocus();
+        kieSession.insert(this.beerService);
+        System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
+
+        kieSession.destroy();
+        List<Beer> beers = (ArrayList<Beer>) kieSession.getGlobal("beers");
+        List<Beer> recommendations = (ArrayList<Beer>) kieSession.getGlobal("recommendations");
         List<Beer> list = new ArrayList<>();
         for (Beer b : beers) {
             if (!list.contains(b)) {

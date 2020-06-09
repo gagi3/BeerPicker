@@ -10,6 +10,7 @@ import rs.beerpicker.server.repository.BeerRepository;
 import rs.beerpicker.server.service.abstraction.BeerService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -34,6 +35,18 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public Beer update(Beer beer) {
         return beerRepository.save(beer);
+    }
+
+    @Override
+    public List<Beer> filter(List<Beer> input, BeerType type, BeerStyle style, List<BeerFlavour> flavours) {
+        if (input == null || input.size() == 0) {
+            input = findAll();
+        }
+        return input.stream()
+                .filter(beer -> type != null && type.equals(beer.getType()))
+                .filter(beer -> style != null && style.equals(beer.getStyle()))
+                .filter(beer -> flavours != null && flavours.size() > 0 && flavours.stream().anyMatch(flavour -> beer.getFlavours().stream().anyMatch(flv -> flv.equals(flavour))))
+                .collect(Collectors.toList());
     }
 
     @Override

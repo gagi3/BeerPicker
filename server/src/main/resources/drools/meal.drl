@@ -1,0 +1,7 @@
+package drools;
+dialect  "mvel"
+
+rule "meal"
+    when
+    then
+end

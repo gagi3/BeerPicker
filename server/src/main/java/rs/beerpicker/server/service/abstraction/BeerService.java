@@ -16,6 +16,8 @@ public interface BeerService {
 
     Beer update(Beer beer);
 
+    List<Beer> filter(List<Beer> input, BeerType type, BeerStyle style, List<BeerFlavour> flavours);
+
     Boolean delete(Long id);
 
     List<Beer> findByNameAndTypeAndStyle(String name, BeerType type, BeerStyle style);
