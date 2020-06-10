@@ -19,8 +19,10 @@ public class Dish {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private DishType type;
     @Column
+    @Enumerated(EnumType.STRING)
     private Cuisine cuisine;
     @OneToMany
     private List<Food> ingredients;

@@ -7,329 +7,291 @@ import java.util.Arrays
 dialect  "mvel"
 
 global java.util.List beers;
+global java.util.List recommendations;
 
 // MEATS
 
 rule "turkey"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "turkey")
+        $beer: Beer(type != BeerType.ALE || style != BeerStyle.AMBER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.clear();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
-        System.out.println("DARK MALTS, AMBER ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "burger"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "burger")
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.PALE) , (type != BeerType.ALE || style != BeerStyle.WHEAT) , type != BeerType.LAGER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.LAGER, BeerStyle.PILSNER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.WHEAT));
-        System.out.println("PALE ALES, PILSNER LAGERS, WHEAT ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "steak"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "steak")
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.RED) , type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.RED));
-        System.out.println("RED ALES, STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "pulled pork"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "pulled pork")
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.PALE) , type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        System.out.println("PALE ALES, STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "chicken wings"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
-        Food(type == FoodType.MEAT && name == "chicken wings")
+        Food(type == FoodType.MEAT , name == "chicken wings")
+        $beer: Beer(type != BeerType.ALE)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.ALE));
-        System.out.println("ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "roast chicken"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "roast chicken")
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.AMBER) , type != BeerType.LAGER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
-        beers.addAll($beerService.findByType(BeerType.LAGER));
-        System.out.println("AMBER ALES, LAGERS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 // CHEESES
 
 rule "soft cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
+        $beer: Beer(style != BeerStyle.WHEAT , type != BeerType.LAGER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        beers.addAll($beerService.findByType(BeerType.LAGER));
-        System.out.println("WHEATS, LAGERS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "curd cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "curd cheese" || name == "mozzarella" || name == "provolone"))
+        $beer: Beer(style != BeerStyle.WHEAT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        System.out.println("WHEATS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "spreadable cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
+        $beer: Beer(style != BeerStyle.PILSNER , (type != BeerType.ALE || style != BeerStyle.PALE) , type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("PILSNERS, PALE ALES, STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "washed-rind cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.AMBER) , (type != BeerType.ALE || style != BeerStyle.BROWN) , (type != BeerType.ALE || style != BeerStyle.PALE))
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        System.out.println("AMBER ALES, BROWN ALES, PALE ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "semi-hard cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
+        $beer: Beer(style != BeerStyle.IPA , style != BeerStyle.PILSNER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.IPA));
-        System.out.println("PILSNERS, INDIAN PALE ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "hard cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.STRONG) , type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.STRONG));
-        System.out.println("STOUTS, STRONG ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "marbled cheese"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))
+        $beer: Beer(type != BeerType.ALE , type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByType(BeerType.ALE));
-        System.out.println("STOUTS, ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 // SEAFOOD
 
 rule "lobster"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "lobster")
+        $beer: Beer(style != BeerStyle.IPA , style != BeerStyle.PILSNER , flavours not contains BeerFlavour.CITRUS)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        System.out.println("CITRUS, PILSNERS, IPAS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "mussels"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "mussels")
+        $beer: Beer(style != BeerStyle.WHEAT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        System.out.println("WHEATS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "oysters"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "oysters")
+        $beer: Beer(type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "crab"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "crab")
+        $beer: Beer(type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "clams"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "clams")
+        $beer: Beer(flavours not contains BeerFlavour.CITRUS)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        System.out.println("CITRUS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 // FISH
 
 rule "salmon"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "salmon")
+        $beer: Beer(style != BeerStyle.IPA , (type != BeerType.ALE || style != BeerStyle.PALE) , (type != BeerType.ALE || style != BeerStyle.BROWN) , type != BeerType.STOUT)
     then
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("IPAS");
+        delete($beer);
 end
 
 rule "sushi"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "sushi")
+        $beer: Beer(style != BeerStyle.IPA , (type != BeerType.ALE || strength > 4.5) , flavours not contains BeerFlavour.CITRUS , style != BeerStyle.PILSNER)
     then
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        beers.addAll($beerService.findByTypeAndStrengthLessThanEqual(BeerType.ALE, 4.5));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        System.out.println("IPAS, LIGHT ALES, CITRUS, PILSNERS");
+        delete($beer);
 end
 
 // FRUIT
 
 rule "apple"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "apple")
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.BROWN) , flavours not contains BeerFlavour.CARAMEL)
     then
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CARAMEL)));
-        System.out.println("BROWN ALES, CARAMEL");
+        delete($beer);
 end
 
 rule "strawberries"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "strawberries")
+        $beer: Beer(type != BeerType.STOUT);
     then
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("STOUT");
+        delete($beer);
 end
 
 rule "orange"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "orange")
+        $beer: Beer(style != BeerStyle.WHEAT , flavours not contains BeerFlavour.CITRUS)
     then
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        System.out.println("WHEAT, CITRUS");
+        delete($beer);
 end
 
 // CHOCOLATE
 
 rule "dark chocolate"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
-        $beerService: BeerService();
+        $beerService: BeerService()
+        $beer: Beer(type != BeerType.STOUT);
         Food(type == FoodType.CHOCOLATE && name == "dark chocolate")
     then
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CHOCOLATE, BeerFlavour.COFFEE, BeerFlavour.CITRUS)));
-        System.out.println("STOUT, PILSNER, WHEAT, CHOCOLATE, COFFEE, CITRUS");
+        delete($beer);
 end
 
 rule "milk chocolate"
-    agenda-group "food"
+    //agenda-group "food"
+    salience 3
     when
         $beerService: BeerService();
         Food(type == FoodType.CHOCOLATE && name == "milk chocolate")
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.WHEAT) , flavours not contains BeerFlavour.CITRUS)
     then
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        System.out.println("PALE ALES, IPA");
+        delete($beer);
 end

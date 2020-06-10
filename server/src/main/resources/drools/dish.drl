@@ -6,24 +6,169 @@ import java.util.ArrayList
 import java.util.Arrays
 dialect  "mvel"
 
-global java.util.List beers;
-global java.util.List recommendations;
-
-rule "dish"
+rule "dessert"
+salience 2
     when
-        $beerService: BeerService();
-        Dish(type == DishType.DESSERT)
+        $beer: Beer(strength > 5)
+        $dish: Dish(type == DishType.DESSERT)
     then
-//        if (beers == null || beers.size() > 0) {
-//            beers = $beerService.findAll();
-//        }
-//        recommendations.addAll($beerService.filter(beers, null, null, Arrays.asList(BeerFlavour.FRUIT, BeerFlavour.BANANA, BeerFlavour.APPLE, BeerFlavour.BERRIES, BeerFlavour.DRIED_CHERRIES, BeerFlavour.PEAR)));
-//        recommendations.addAll($beerService.filter(beers, BeerType.STOUT, null, null));
-//        recommendations.addAll($beerService.filter(beers, null, BeerStyle.IPA, null));
-//        beers.clear();
-//
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.FRUIT, BeerFlavour.BANANA, BeerFlavour.APPLE, BeerFlavour.BERRIES, BeerFlavour.DRIED_CHERRIES, BeerFlavour.PEAR)));
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-//        System.out.println("DARK MALTS, AMBER ALES");
+        delete($beer);
+end
+
+rule "sweet"
+salience 2
+    when
+        $beer: Beer(type != BeerType.STOUT , style != BeerStyle.DARK , flavours not contains BeerFlavour.FRUIT)
+        $dish: Dish(sweetnessIndex > 3)
+    then
+        System.out.println($beer);
+        delete($beer);
+end
+
+rule "spicy"
+salience 2
+    when
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.AMBER) , type != BeerType.LAGER)
+        $dish: Dish(spicinessIndex > 2)
+    then
+        delete($beer);
+end
+
+rule "hot"
+salience 2
+    when
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.PALE) , style != BeerStyle.IPA)
+        $dish: Dish(spicinessIndex > 4)
+    then
+        delete($beer);
+end
+
+rule "salty"
+salience 2
+    when
+        $beer: Beer(style != BeerStyle.IPA , type != BeerType.STOUT)
+        $dish: Dish(saltinessIndex > 3)
+    then
+        delete($beer);
+end
+
+rule "mexican"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER)
+        $dish: Dish(cuisine == Cuisine.MEXICAN)
+    then
+        delete($beer);
+end
+
+rule "american"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER , style != BeerStyle.IPA)
+        $dish: Dish(cuisine == Cuisine.AMERICAN)
+    then
+        delete($beer);
+end
+
+rule "german"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER , style != BeerStyle.WHEAT , style != BeerStyle.DARK)
+        $dish: Dish(cuisine == Cuisine.GERMAN)
+    then
+        delete($beer);
+end
+
+rule "indian"
+salience 2
+    when
+        $beer: Beer(style != BeerStyle.IPA)
+        $dish: Dish(cuisine == Cuisine.INDIAN)
+    then
+        delete($beer);
+end
+
+rule "english"
+salience 2
+    when
+        $beer: Beer(type != BeerType.STOUT)
+        $dish: Dish(cuisine == Cuisine.ENGLISH)
+    then
+        delete($beer);
+end
+
+rule "irish"
+salience 2
+    when
+        $beer: Beer(type != BeerType.STOUT , style != BeerStyle.STRONG , style != BeerStyle.DARK , style != BeerStyle.CREAM)
+        $dish: Dish(cuisine == Cuisine.IRISH)
+    then
+        delete($beer);
+end
+
+rule "french"
+salience 2
+    when
+        $beer: Beer(style != BeerStyle.AMBER , style != BeerStyle.RED , style != BeerStyle.BLONDE)
+        $dish: Dish(cuisine == Cuisine.FRENCH)
+    then
+        delete($beer);
+end
+
+rule "serbian"
+salience 2
+    when
+        $beer: Beer(style != BeerStyle.WHEAT , type != BeerType.LAGER , style != BeerStyle.BLONDE)
+        $dish: Dish(cuisine == Cuisine.SERBIAN)
+    then
+        delete($beer);
+end
+
+rule "fried"
+salience 2
+    when
+        $beer: Beer(style != BeerStyle.BLONDE , type != BeerType.LAGER)
+        $dish: Dish(preparation contains Preparation.FRYING)
+    then
+        delete($beer);
+end
+
+rule "grilled"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER , type != BeerType.STOUT)
+        $dish: Dish(preparation contains Preparation.SMOKING)
+    then
+        delete($beer);
+end
+
+rule "baked"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER)
+        $dish: Dish(preparation contains Preparation.BAKING)
+    then
+        delete($beer);
+end
+
+rule "broiled"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER , type != BeerType.STOUT)
+        $dish: Dish(preparation contains Preparation.BROILING)
+    then
+        delete($beer);
+end
+
+rule "roasted"
+salience 2
+    when
+        $beer: Beer(type != BeerType.STOUT)
+        $dish: Dish(preparation contains Preparation.ROASTING)
+    then
+        delete($beer);
+end
+
+query getBeers
+    $beer: Beer()
 end

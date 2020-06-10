@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.beerpicker.server.model.Dish;
 import rs.beerpicker.server.model.Food;
+import rs.beerpicker.server.model.Meal;
 import rs.beerpicker.server.service.abstraction.DroolsService;
 
 @RestController
@@ -26,6 +27,12 @@ public class DroolsController {
     @PostMapping(value = "/recommend-by-dish")
     public ResponseEntity<?> recommendByDish(@RequestBody Dish dish) {
         Object beers = droolsService.recommendByDish(dish);
+        return new ResponseEntity<>(beers, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/recommend-by-meal")
+    public ResponseEntity<?> recommendByMeal(@RequestBody Meal meal) {
+        Object beers = droolsService.recommendByMeal(meal);
         return new ResponseEntity<>(beers, HttpStatus.OK);
     }
 }

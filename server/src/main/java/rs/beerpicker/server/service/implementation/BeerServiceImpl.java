@@ -50,6 +50,51 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
+    public List<Beer> filter(List<Beer> input, BeerType type, List<BeerFlavour> flavours) {
+        return input.stream()
+                .filter(beer -> type != null && type.equals(beer.getType()))
+                .filter(beer -> flavours != null && flavours.size() > 0 && flavours.stream().anyMatch(flavour -> beer.getFlavours().stream().anyMatch(flv -> flv.equals(flavour))))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Beer> filter(List<Beer> input, BeerStyle style, List<BeerFlavour> flavours) {
+        return input.stream()
+                .filter(beer -> style != null && style.equals(beer.getStyle()))
+                .filter(beer -> flavours != null && flavours.size() > 0 && flavours.stream().anyMatch(flavour -> beer.getFlavours().stream().anyMatch(flv -> flv.equals(flavour))))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Beer> filter(List<Beer> input, BeerType type, BeerStyle style) {
+        return input.stream()
+                .filter(beer -> type != null && type.equals(beer.getType()))
+                .filter(beer -> style != null && style.equals(beer.getStyle()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Beer> filter(List<Beer> input, BeerType type) {
+        return input.stream()
+                .filter(beer -> type != null && type.equals(beer.getType()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Beer> filter(List<Beer> input, BeerStyle style) {
+        return input.stream()
+                .filter(beer -> style != null && style.equals(beer.getStyle()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Beer> filter(List<Beer> input, List<BeerFlavour> flavours) {
+        return input.stream()
+                .filter(beer -> flavours != null && flavours.size() > 0 && flavours.stream().anyMatch(flavour -> beer.getFlavours().stream().anyMatch(flv -> flv.equals(flavour))))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Boolean delete(Long id) {
         beerRepository.deleteById(id);
         return true;
