@@ -7,21 +7,61 @@ import java.util.Arrays
 dialect  "mvel"
 
 rule "dessert"
-salience -2
+salience 2
     when
         $beer: Beer(strength > 5)
-//        $food: Food($type: type, $name: name)
         $dish: Dish(type == DishType.DESSERT)
     then
         delete($beer);
 end
 
 rule "sweet"
-salience -2
+salience 2
     when
         $beer: Beer(flavours contains BeerFlavour.OATS)
         $dish: Dish(sweetnessIndex > 3)
-//        $food: Food($type: type, $name: name)
     then
         delete($beer);
+end
+
+rule "spicy"
+salience 2
+    when
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER) || type != BeerType.LAGER)
+        $dish: Dish(spicinessIndex > 2)
+    then
+        delete($beer);
+end
+
+rule "hot"
+salience 2
+    when
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.PALE) || style != BeerStyle.IPA)
+        $dish: Dish(spicinessIndex > 4)
+    then
+        delete($beer);
+end
+
+rule "salty"
+salience 2
+    when
+        $beer: Beer(style != BeerStyle.IPA)
+        $dish: Dish(saltinessIndex > 3)
+    then
+        delete($beer);
+end
+
+rule "mexican"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER)
+        $dish: Dish(cuisine == Cuisine.MEXICAN)
+    then
+        delete($beer);
+end
+
+
+
+query getBeers
+    $beer: Beer()
 end

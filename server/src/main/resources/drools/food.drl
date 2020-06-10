@@ -17,12 +17,9 @@ rule "turkey"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "turkey")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER))
     then
-        //List<Beer> beers = new ArrayList();
-        beers.clear();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
-        System.out.println("DARK MALTS, AMBER ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "burger"
@@ -31,13 +28,9 @@ rule "burger"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "burger")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.PALE) || (type != BeerType.ALE && style != BeerStyle.WHEAT) || type != BeerType.LAGER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.LAGER, BeerStyle.PILSNER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.WHEAT));
-        System.out.println("PALE ALES, PILSNER LAGERS, WHEAT ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "steak"
@@ -46,12 +39,9 @@ rule "steak"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "steak")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.RED) || type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.RED));
-        System.out.println("RED ALES, STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "pulled pork"
@@ -60,12 +50,9 @@ rule "pulled pork"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "pulled pork")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.PALE) || type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        System.out.println("PALE ALES, STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "chicken wings"
@@ -74,11 +61,9 @@ rule "chicken wings"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "chicken wings")
+        $beer: Beer(type != BeerType.ALE)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.ALE));
-        System.out.println("ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "roast chicken"
@@ -87,12 +72,9 @@ rule "roast chicken"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "roast chicken")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER) || type != BeerType.LAGER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
-        beers.addAll($beerService.findByType(BeerType.LAGER));
-        System.out.println("AMBER ALES, LAGERS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 // CHEESES
@@ -103,12 +85,9 @@ rule "soft cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
+        $beer: Beer(style != BeerStyle.WHEAT || type != BeerType.LAGER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        beers.addAll($beerService.findByType(BeerType.LAGER));
-        System.out.println("WHEATS, LAGERS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "curd cheese"
@@ -117,11 +96,9 @@ rule "curd cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "curd cheese" || name == "mozzarella" || name == "provolone"))
+        $beer: Beer(style != BeerStyle.WHEAT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        System.out.println("WHEATS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "spreadable cheese"
@@ -130,13 +107,9 @@ rule "spreadable cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
+        $beer: Beer(style != BeerStyle.PILSNER || (type != BeerType.ALE && style != BeerStyle.PALE) || type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("PILSNERS, PALE ALES, STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "washed-rind cheese"
@@ -145,13 +118,9 @@ rule "washed-rind cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER) || (type != BeerType.ALE && style != BeerStyle.BROWN) || (type != BeerType.ALE && style != BeerStyle.PALE))
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.AMBER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        System.out.println("AMBER ALES, BROWN ALES, PALE ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "semi-hard cheese"
@@ -160,12 +129,9 @@ rule "semi-hard cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
+        $beer: Beer(style != BeerStyle.IPA || style != BeerStyle.PILSNER)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.IPA));
-        System.out.println("PILSNERS, INDIAN PALE ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "hard cheese"
@@ -174,12 +140,9 @@ rule "hard cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.STRONG) || type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.STRONG));
-        System.out.println("STOUTS, STRONG ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "marbled cheese"
@@ -188,12 +151,9 @@ rule "marbled cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))
+        $beer: Beer(type != BeerType.ALE || type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        beers.addAll($beerService.findByType(BeerType.ALE));
-        System.out.println("STOUTS, ALES");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 // SEAFOOD
@@ -204,13 +164,9 @@ rule "lobster"
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "lobster")
+        $beer: Beer(style != BeerStyle.IPA || style != BeerStyle.PILSNER || flavours not contains BeerFlavour.CITRUS)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        System.out.println("CITRUS, PILSNERS, IPAS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "mussels"
@@ -219,11 +175,9 @@ rule "mussels"
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "mussels")
+        $beer: Beer(style != BeerStyle.WHEAT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        System.out.println("WHEATS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "oysters"
@@ -232,11 +186,9 @@ rule "oysters"
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "oysters")
+        $beer: Beer(type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "crab"
@@ -245,11 +197,9 @@ rule "crab"
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "crab")
+        $beer: Beer(type != BeerType.STOUT)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("STOUTS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 rule "clams"
@@ -258,11 +208,9 @@ rule "clams"
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "clams")
+        $beer: Beer(flavours not contains BeerFlavour.CITRUS)
     then
-        //List<Beer> beers = new ArrayList();
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        System.out.println("CITRUS");
-        //System.out.println(beers);
+        delete($beer);
 end
 
 // FISH
@@ -273,12 +221,9 @@ rule "salmon"
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "salmon")
+        $beer: Beer(style != BeerStyle.IPA || (type != BeerType.ALE && style != BeerStyle.PALE) || (type != BeerType.ALE && style != BeerStyle.BROWN) || type != BeerType.STOUT)
     then
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
-        beers.addAll($beerService.findByType(BeerType.STOUT));
-        System.out.println("IPAS");
+        delete($beer);
 end
 
 rule "sushi"
@@ -287,12 +232,9 @@ rule "sushi"
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "sushi")
+        $beer: Beer(style != BeerStyle.IPA || (type != BeerType.ALE && strength > 4.5) || flavours not contains BeerFlavour.CITRUS || style != BeerStyle.PILSNER)
     then
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        beers.addAll($beerService.findByTypeAndStrengthLessThanEqual(BeerType.ALE, 4.5));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        beers.addAll($beerService.findByStyle(BeerStyle.PILSNER));
-        System.out.println("IPAS, LIGHT ALES, CITRUS, PILSNERS");
+        delete($beer);
 end
 
 // FRUIT
@@ -303,10 +245,9 @@ rule "apple"
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "apple")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.BROWN) || flavours not contains BeerFlavour.CARAMEL)
     then
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.BROWN));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CARAMEL)));
-        System.out.println("BROWN ALES, CARAMEL");
+        delete($beer);
 end
 
 rule "strawberries"
@@ -315,9 +256,9 @@ rule "strawberries"
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "strawberries")
-        $beer: Beer(type == BeerType.STOUT);
+        $beer: Beer(type != BeerType.STOUT);
     then
-        insert($beer)
+        delete($beer);
 end
 
 rule "orange"
@@ -326,10 +267,9 @@ rule "orange"
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "orange")
+        $beer: Beer(style != BeerStyle.WHEAT || flavours not contains BeerFlavour.CITRUS)
     then
-        beers.addAll($beerService.findByStyle(BeerStyle.WHEAT));
-        beers.addAll($beerService.findByFlavours(Arrays.asList(BeerFlavour.CITRUS)));
-        System.out.println("WHEAT, CITRUS");
+        delete($beer);
 end
 
 // CHOCOLATE
@@ -339,10 +279,10 @@ rule "dark chocolate"
     salience 3
     when
         $beerService: BeerService()
-        $beer: Beer(type == BeerType.STOUT);
+        $beer: Beer(type != BeerType.STOUT);
         Food(type == FoodType.CHOCOLATE && name == "dark chocolate")
     then
-        insert($beer)
+        delete($beer);
 end
 
 rule "milk chocolate"
@@ -351,8 +291,7 @@ rule "milk chocolate"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHOCOLATE && name == "milk chocolate")
+        $beer: Beer((type != BeerType.ALE && style != BeerStyle.WHEAT) || flavours not contains BeerFlavour.CITRUS)
     then
-        beers.addAll($beerService.findByTypeAndStyle(BeerType.ALE, BeerStyle.PALE));
-        beers.addAll($beerService.findByStyle(BeerStyle.IPA));
-        System.out.println("PALE ALES, IPA");
+        delete($beer);
 end

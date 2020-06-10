@@ -2,6 +2,7 @@ package rs.beerpicker.server.service.implementation;
 
 import org.drools.core.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieContext;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,28 +39,68 @@ public class DroolsServiceImpl implements DroolsService {
         beerList.forEach(kieSession::insert);
         kieSession.getAgenda().getAgendaGroup("food").setFocus();
         System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
+        List<Object> objects = new ArrayList<>();
+        kieSession.getQueryResults("getBeers").forEach(row -> objects.add(row.get("$beer")));
         kieSession.destroy();
-        return kieSession.getObjects();
+        return objects;
     }
+//
+//    @Override
+//    public Object recommendByDish(Dish dish) {
+//        KieSession kieSession = kieContainer.newKieSession("BeerPickerSession");
+//        kieSession.setGlobal("beers", new ArrayList<Beer>());
+//        kieSession.setGlobal("recommendations", new ArrayList<Beer>());
+//        List<Beer> beerList = beerService.findAll();
+//        System.out.println("===");
+//        System.out.println("Dish name: " + dish.getName() + ", group: " + dish.getType().toString() + ".");
+//        System.out.println("Searching for the following type(s), style(s) and/or flavour(s): ");
+//        kieSession.insert(this.beerService);
+//        beerList.forEach(kieSession::insert);
+//        dish.getIngredients().forEach(kieSession::insert);
+//        System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
+////        System.out.println(kieSession.getQueryResults("getBeers"));
+//        kieSession.getQueryResults("getBeers").forEach(row -> System.out.println(row.get("$beer").toString()));
+//        System.out.println(kieSession.getQueryResults("getBeers").size());
+//        kieSession.insert(dish);
+//        System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
+////        System.out.println(kieSession.getQueryResults("getBeers"));
+//        kieSession.getQueryResults("getBeers").forEach(row -> System.out.println(row.get("$beer").toString()));
+//        System.out.println(kieSession.getQueryResults("getBeers").size());
+//        List<Object> objects = new ArrayList<>();
+//        kieSession.getQueryResults("getBeers").forEach(row -> objects.add(row.get("$beer")));
+//        kieSession.destroy();
+//
+//        return objects;
+//    }
 
     @Override
     public Object recommendByDish(Dish dish) {
         KieSession kieSession = kieContainer.newKieSession("BeerPickerSession");
         kieSession.setGlobal("beers", new ArrayList<Beer>());
         kieSession.setGlobal("recommendations", new ArrayList<Beer>());
-        List<Beer> beerList = beerService.findAll();
+        List<Beer> beerList = new ArrayList<>();
         System.out.println("===");
         System.out.println("Dish name: " + dish.getName() + ", group: " + dish.getType().toString() + ".");
         System.out.println("Searching for the following type(s), style(s) and/or flavour(s): ");
         kieSession.insert(this.beerService);
+//        beerList.forEach(kieSession::insert);
+        dish.getIngredients().forEach(food -> {
+            beerList.addAll((Collection<? extends Beer>) recommendByFood(food));
+        });
         beerList.forEach(kieSession::insert);
-        dish.getIngredients().forEach(kieSession::insert);
-        System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
+//        System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
+//        System.out.println(kieSession.getQueryResults("getBeers"));
+//        kieSession.getQueryResults("getBeers").forEach(row -> System.out.println(row.get("$beer").toString()));
+//        System.out.println(kieSession.getQueryResults("getBeers").size());
         kieSession.insert(dish);
         System.out.println("Executed " + kieSession.fireAllRules() + " rule(s).");
-
+//        System.out.println(kieSession.getQueryResults("getBeers"));
+//        kieSession.getQueryResults("getBeers").forEach(row -> System.out.println(row.get("$beer").toString()));
+//        System.out.println(kieSession.getQueryResults("getBeers").size());
+        List<Object> objects = new ArrayList<>();
+        kieSession.getQueryResults("getBeers").forEach(row -> objects.add(row.get("$beer")));
         kieSession.destroy();
 
-        return kieSession.getObjects();
+        return objects;
     }
 }
