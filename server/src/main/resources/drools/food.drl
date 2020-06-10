@@ -17,7 +17,7 @@ rule "turkey"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "turkey")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER))
+        $beer: Beer(type != BeerType.ALE || style != BeerStyle.AMBER)
     then
         delete($beer);
 end
@@ -28,7 +28,7 @@ rule "burger"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "burger")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.PALE) || (type != BeerType.ALE && style != BeerStyle.WHEAT) || type != BeerType.LAGER)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.PALE) , (type != BeerType.ALE || style != BeerStyle.WHEAT) , type != BeerType.LAGER)
     then
         delete($beer);
 end
@@ -39,7 +39,7 @@ rule "steak"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "steak")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.RED) || type != BeerType.STOUT)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.RED) , type != BeerType.STOUT)
     then
         delete($beer);
 end
@@ -50,7 +50,7 @@ rule "pulled pork"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "pulled pork")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.PALE) || type != BeerType.STOUT)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.PALE) , type != BeerType.STOUT)
     then
         delete($beer);
 end
@@ -60,7 +60,7 @@ rule "chicken wings"
     salience 3
     when
         $beerService: BeerService();
-        Food(type == FoodType.MEAT && name == "chicken wings")
+        Food(type == FoodType.MEAT , name == "chicken wings")
         $beer: Beer(type != BeerType.ALE)
     then
         delete($beer);
@@ -72,7 +72,7 @@ rule "roast chicken"
     when
         $beerService: BeerService();
         Food(type == FoodType.MEAT && name == "roast chicken")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER) || type != BeerType.LAGER)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.AMBER) , type != BeerType.LAGER)
     then
         delete($beer);
 end
@@ -85,7 +85,7 @@ rule "soft cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta"))
-        $beer: Beer(style != BeerStyle.WHEAT || type != BeerType.LAGER)
+        $beer: Beer(style != BeerStyle.WHEAT , type != BeerType.LAGER)
     then
         delete($beer);
 end
@@ -107,7 +107,7 @@ rule "spreadable cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "spreadable cheese" || name == "camembert" || name == "brie"))
-        $beer: Beer(style != BeerStyle.PILSNER || (type != BeerType.ALE && style != BeerStyle.PALE) || type != BeerType.STOUT)
+        $beer: Beer(style != BeerStyle.PILSNER , (type != BeerType.ALE || style != BeerStyle.PALE) , type != BeerType.STOUT)
     then
         delete($beer);
 end
@@ -118,7 +118,7 @@ rule "washed-rind cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack"))
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.AMBER) || (type != BeerType.ALE && style != BeerStyle.BROWN) || (type != BeerType.ALE && style != BeerStyle.PALE))
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.AMBER) , (type != BeerType.ALE || style != BeerStyle.BROWN) , (type != BeerType.ALE || style != BeerStyle.PALE))
     then
         delete($beer);
 end
@@ -129,7 +129,7 @@ rule "semi-hard cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "semi-hard cheese" || name == "cheddar"))
-        $beer: Beer(style != BeerStyle.IPA || style != BeerStyle.PILSNER)
+        $beer: Beer(style != BeerStyle.IPA , style != BeerStyle.PILSNER)
     then
         delete($beer);
 end
@@ -140,7 +140,7 @@ rule "hard cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "hard cheese" || name == "parmesan" || name == "pecorino"))
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.STRONG) || type != BeerType.STOUT)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.STRONG) , type != BeerType.STOUT)
     then
         delete($beer);
 end
@@ -151,7 +151,7 @@ rule "marbled cheese"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHEESE && (name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese"))
-        $beer: Beer(type != BeerType.ALE || type != BeerType.STOUT)
+        $beer: Beer(type != BeerType.ALE , type != BeerType.STOUT)
     then
         delete($beer);
 end
@@ -164,7 +164,7 @@ rule "lobster"
     when
         $beerService: BeerService();
         Food(type == FoodType.SEAFOOD && name == "lobster")
-        $beer: Beer(style != BeerStyle.IPA || style != BeerStyle.PILSNER || flavours not contains BeerFlavour.CITRUS)
+        $beer: Beer(style != BeerStyle.IPA , style != BeerStyle.PILSNER , flavours not contains BeerFlavour.CITRUS)
     then
         delete($beer);
 end
@@ -221,7 +221,7 @@ rule "salmon"
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "salmon")
-        $beer: Beer(style != BeerStyle.IPA || (type != BeerType.ALE && style != BeerStyle.PALE) || (type != BeerType.ALE && style != BeerStyle.BROWN) || type != BeerType.STOUT)
+        $beer: Beer(style != BeerStyle.IPA , (type != BeerType.ALE || style != BeerStyle.PALE) , (type != BeerType.ALE || style != BeerStyle.BROWN) , type != BeerType.STOUT)
     then
         delete($beer);
 end
@@ -232,7 +232,7 @@ rule "sushi"
     when
         $beerService: BeerService();
         Food(type == FoodType.FISH && name == "sushi")
-        $beer: Beer(style != BeerStyle.IPA || (type != BeerType.ALE && strength > 4.5) || flavours not contains BeerFlavour.CITRUS || style != BeerStyle.PILSNER)
+        $beer: Beer(style != BeerStyle.IPA , (type != BeerType.ALE || strength > 4.5) , flavours not contains BeerFlavour.CITRUS , style != BeerStyle.PILSNER)
     then
         delete($beer);
 end
@@ -245,7 +245,7 @@ rule "apple"
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "apple")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.BROWN) || flavours not contains BeerFlavour.CARAMEL)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.BROWN) , flavours not contains BeerFlavour.CARAMEL)
     then
         delete($beer);
 end
@@ -267,7 +267,7 @@ rule "orange"
     when
         $beerService: BeerService();
         Food(type == FoodType.FRUIT && name == "orange")
-        $beer: Beer(style != BeerStyle.WHEAT || flavours not contains BeerFlavour.CITRUS)
+        $beer: Beer(style != BeerStyle.WHEAT , flavours not contains BeerFlavour.CITRUS)
     then
         delete($beer);
 end
@@ -291,7 +291,7 @@ rule "milk chocolate"
     when
         $beerService: BeerService();
         Food(type == FoodType.CHOCOLATE && name == "milk chocolate")
-        $beer: Beer((type != BeerType.ALE && style != BeerStyle.WHEAT) || flavours not contains BeerFlavour.CITRUS)
+        $beer: Beer((type != BeerType.ALE || style != BeerStyle.WHEAT) , flavours not contains BeerFlavour.CITRUS)
     then
         delete($beer);
 end
