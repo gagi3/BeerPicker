@@ -6,6 +6,8 @@ import java.util.ArrayList
 import java.util.Arrays
 dialect  "mvel"
 
+// TYPES
+
 rule "dessert"
 salience 2
     when
@@ -15,13 +17,32 @@ salience 2
         delete($beer);
 end
 
+rule "soup"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER || strength > 4.5)
+        $dish: Dish(type == DishType.SOUP)
+    then
+        delete($beer);
+end
+
+rule "salad"
+salience 2
+    when
+        $beer: Beer(type != BeerType.LAGER, style != BeerStyle.WHEAT)
+        $dish: Dish(type == DishType.SALAD)
+    then
+        delete($beer);
+end
+
+// INDEXES
+
 rule "sweet"
 salience 2
     when
         $beer: Beer(type != BeerType.STOUT , style != BeerStyle.DARK , flavours not contains BeerFlavour.FRUIT)
         $dish: Dish(sweetnessIndex > 3)
     then
-        System.out.println($beer);
         delete($beer);
 end
 
@@ -51,6 +72,8 @@ salience 2
     then
         delete($beer);
 end
+
+// CUISINES
 
 rule "mexican"
 salience 2
@@ -168,6 +191,8 @@ salience 2
     then
         delete($beer);
 end
+
+// QUERY
 
 query getBeers
     $beer: Beer()
