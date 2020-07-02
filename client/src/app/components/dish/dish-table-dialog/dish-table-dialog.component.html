@@ -1,0 +1,78 @@
+<mat-table mat-table #table [dataSource]="data.dishes" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.name}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.type}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cuisine">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Cuisine</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.cuisine}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="descriptors">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Descriptors</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.descriptors}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="preparation">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Preparation</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.preparation}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="saltinessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Saltiness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.saltinessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="spicinessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Spiciness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.spicinessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="sweetnessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Sweetness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.sweetnessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="sournessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Sourness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.sournessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="bitternessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Bitterness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.bitternessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ingredients">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-button mat-flat-button color="primary" aria-label="Ingredients"
+        matTooltip="Ingredients" (click)="ingredients(element)">
+        INGREDIENTS
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<button mat-button mat-flat-button color="warn" aria-label="Close"
+matTooltip="Close the dialog" (click)="close()">
+CLOSE
+</button>

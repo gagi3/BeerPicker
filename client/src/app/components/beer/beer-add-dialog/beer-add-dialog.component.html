@@ -1,0 +1,86 @@
+<h1 mat-dialog-title>ADD BEER</h1>
+<div mat-dialog-content>
+  <p>Name</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="data.beer.name" required>
+  </mat-form-field>
+  <p>Strength</p>
+  <mat-form-field>
+    <mat-label>Strength</mat-label>
+    <input matInput type="text" [(ngModel)]="data.beer.strength" required>
+  </mat-form-field>
+  <p>Type</p>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select [(value)]="data.beer.type">
+      <mat-option value="ALE">ALE</mat-option>
+      <mat-option value="LAGER">LAGER</mat-option>
+      <mat-option value="STOUT">STOUT</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Style</p>
+  <mat-form-field>
+    <mat-label>Style</mat-label>
+    <mat-select [(value)]="data.beer.style">
+      <mat-option value="AMBER">AMBER</mat-option>
+      <mat-option value="BLONDE">BLONDE</mat-option>
+      <mat-option value="BROWN">BROWN</mat-option>
+      <mat-option value="CREAM">CREAM</mat-option>
+      <mat-option value="DARK">DARK</mat-option>
+      <mat-option value="PALE">PALE</mat-option>
+      <mat-option value="STRONG">STRONG</mat-option>
+      <mat-option value="WHEAT">WHEAT</mat-option>
+      <mat-option value="RED">RED</mat-option>
+      <mat-option value="IPA">IPA</mat-option>
+      <mat-option value="LIME">LIME</mat-option>
+      <mat-option value="PILSNER">PILSNER</mat-option>
+      <mat-option value="GOLDEN">GOLDEN</mat-option>
+      <mat-option value="FRUIT">FRUIT</mat-option>
+      <mat-option value="HONEY">HONEY</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Flavours</p>
+  <mat-form-field>
+    <mat-label>Flavours</mat-label>
+    <mat-select [(value)]="data.beer.flavours" multiple>
+      <mat-option value="FRUIT">FRUIT</mat-option>
+      <mat-option value="CARAMEL">CARAMEL</mat-option>
+      <mat-option value="COFFEE">COFFEE</mat-option>
+      <mat-option value="FLOWERS">FLOWERS</mat-option>
+      <mat-option value="HERBS">HERBS</mat-option>
+      <mat-option value="BANANA">BANANA</mat-option>
+      <mat-option value="GRAPEFRUIT">GRAPEFRUIT</mat-option>
+      <mat-option value="WOOD">WOOD</mat-option>
+      <mat-option value="PINEAPPLE">PINEAPPLE</mat-option>
+      <mat-option value="PEPPER">PEPPER</mat-option>
+      <mat-option value="BARLEY">BARLEY</mat-option>
+      <mat-option value="NUTS">NUTS</mat-option>
+      <mat-option value="OATS">OATS</mat-option>
+      <mat-option value="DRIED_CHERRIES">DRIED CHERRIES</mat-option>
+      <mat-option value="TOFFEE">TOFFEE</mat-option>
+      <mat-option value="CHOCOLATE">CHOCOLATE</mat-option>
+      <mat-option value="HONEY">HONEY</mat-option>
+      <mat-option value="BREAD">BREAD</mat-option>
+      <mat-option value="CLOVES">CLOVES</mat-option>
+      <mat-option value="PLUM">PLUM</mat-option>
+      <mat-option value="MALT">MALT</mat-option>
+      <mat-option value="BISCUITS">BISCUITS</mat-option>
+      <mat-option value="RAISINS">RAISINS</mat-option>
+      <mat-option value="APPLE">APPLE</mat-option>
+      <mat-option value="LEMON">LEMON</mat-option>
+      <mat-option value="GRASS">GRASS</mat-option>
+      <mat-option value="BITTER_HERBS">BITTER HERBS</mat-option>
+      <mat-option value="PEAR">PEAR</mat-option>
+      <mat-option value="BERRIES">BERRIES</mat-option>
+      <mat-option value="FUNKY">FUNKY</mat-option>
+      <mat-option value="MUSHROOMS">MUSHROOMS</mat-option>
+      <mat-option value="CITRUS">CITRUS</mat-option>
+      <mat-option value="VANILLA">VANILLA</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-flat-button color="primary" [mat-dialog-close]="data.beer">Submit</button>
+  <button mat-button mat-flat-button color="accent" (click)="close()" cdkFocusInitial>Close</button>
+</div>

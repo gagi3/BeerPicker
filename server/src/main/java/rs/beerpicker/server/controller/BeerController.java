@@ -24,7 +24,7 @@ public class BeerController {
         } else if (beers.size() == 0) {
             status = HttpStatus.NO_CONTENT;
         } else {
-            status = HttpStatus.FOUND;
+            status = HttpStatus.OK;
         }
         return new ResponseEntity<>(beers, status);
     }
@@ -36,7 +36,7 @@ public class BeerController {
         if (beer == null) {
             status = HttpStatus.NOT_FOUND;
         } else {
-            status = HttpStatus.FOUND;
+            status = HttpStatus.OK;
         }
         return new ResponseEntity<>(beer, status);
     }

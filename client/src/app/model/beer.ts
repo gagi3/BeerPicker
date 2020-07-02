@@ -3,7 +3,7 @@ import { BeerType } from './beer-type.enum';
 import { BeerStyle } from './beer-style.enum';
 
 export class Beer {
-  id: BigInteger;
+  id: number;
   name: string;
   strength: number;
   flavours: BeerFlavour[];

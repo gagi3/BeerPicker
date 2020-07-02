@@ -1,0 +1,110 @@
+<button mat-button mat-flat-button color="primary" (click)="add()">NEW DISH</button>
+<button mat-button mat-flat-button color="accent" (click)="ngOnInit()">RESET</button>
+
+<mat-form-field>
+  <mat-label>Filter/search</mat-label>
+  <input matInput (keyup)="applyFilter($event)"/>
+</mat-form-field>
+
+<mat-table mat-table #table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.name}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.type}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cuisine">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Cuisine</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.cuisine}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="descriptors">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Descriptors</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.descriptors}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="preparation">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Preparation</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.preparation}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="saltinessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Saltiness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.saltinessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="spicinessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Spiciness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.spicinessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="sweetnessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Sweetness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.sweetnessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="sournessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Sourness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.sournessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="bitternessIndex">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Bitterness</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      {{element.bitternessIndex}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ingredients">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>Ingredients</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-button mat-flat-button color="primary" aria-label="Ingredients"
+        matTooltip="Ingredients" (click)="ingredients(element)">
+        INGREDIENTS
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="edit">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-button mat-flat-button color="accent" aria-label="Edit dish"
+        matTooltip="Edit this dish" (click)="edit(element)">
+        EDIT
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-button mat-flat-button color="warn" aria-label="Delete dish"
+        matTooltip="Delete this dish" (click)="delete(element)">
+        DELETE
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="recommend">
+    <mat-header-cell mat-header-cell *matHeaderCellDef>Recommend</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-button mat-flat-button color="primary" aria-label="Recommend"
+        matTooltip="Recommend" (click)="recommend(element)">
+        RECOMMEND
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<mat-paginator [length]="dishes.length" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>

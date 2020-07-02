@@ -15,7 +15,7 @@ export class FoodService {
 constructor(private http: HttpClient) { }
 
 getAll(): Observable<Food[]> {
-  return this.http.get<Food[]>(this.URL, httpOptions);
+  return this.http.get<Food[]>(this.URL + '/', httpOptions);
 }
 
 getOne(id: number): Observable<Food> {

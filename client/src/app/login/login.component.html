@@ -10,7 +10,7 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button *ngIf="request.username !== undefined && request.password !== undefined && request.password.length > 8"
+  <button *ngIf="request.username !== undefined && request.password !== undefined && request.password.length > 4"
     mat-button mat-flat-button matTooltip="Sign in" color="primary" (click)="login()">LOGIN</button>
   <button mat-button mat-flat-button matTooltip="Cancel" color="accent" (click)="cancel()">CANCEL</button>
 </div>

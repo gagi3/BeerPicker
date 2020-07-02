@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>ADD MEAL</h1>
+<div mat-dialog-content>
+  <p>Name</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="data.food.name" required>
+  </mat-form-field>
+  <p>Type</p>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select [(value)]="data.food.type">
+      <mat-option value="MEAT">MEAT</mat-option>
+      <mat-option value="VEGETABLE">VEGETABLE</mat-option>
+      <mat-option value="FRUIT">FRUIT</mat-option>
+      <mat-option value="CHEESE">CHEESE</mat-option>
+      <mat-option value="SEAFOOD">SEAFOOD</mat-option>
+      <mat-option value="FISH">FISH</mat-option>
+      <mat-option value="DOUGH">DOUGH</mat-option>
+      <mat-option value="PASTA">PASTA</mat-option>
+      <mat-option value="DAIRY">DAIRY</mat-option>
+      <mat-option value="CHOCOLATE">CHOCOLATE</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-flat-button color="primary" [mat-dialog-close]="data.food">Submit</button>
+  <button mat-button mat-flat-button color="accent" (click)="close()" cdkFocusInitial>Close</button>
+</div>

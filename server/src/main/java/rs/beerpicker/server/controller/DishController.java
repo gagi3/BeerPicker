@@ -24,7 +24,7 @@ public class DishController {
         } else if (dishes.size() == 0) {
             status = HttpStatus.NO_CONTENT;
         } else {
-            status = HttpStatus.FOUND;
+            status = HttpStatus.OK;
         }
         return new ResponseEntity<>(dishes, status);
     }
@@ -36,7 +36,7 @@ public class DishController {
         if (dish == null) {
             status = HttpStatus.NOT_FOUND;
         } else {
-            status = HttpStatus.FOUND;
+            status = HttpStatus.OK;
         }
         return new ResponseEntity<>(dish, status);
     }

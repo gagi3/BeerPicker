@@ -12,5 +12,6 @@ export enum Cuisine {
   ITALIAN_AMERICAN,
   MEDITERRANEAN,
   TURKISH,
-  SPANISH
+  SPANISH,
+  GERMAN
 }

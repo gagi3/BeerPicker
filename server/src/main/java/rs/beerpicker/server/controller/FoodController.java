@@ -24,7 +24,7 @@ public class FoodController {
         } else if (foods.size() == 0) {
             status = HttpStatus.NO_CONTENT;
         } else {
-            status = HttpStatus.FOUND;
+            status = HttpStatus.OK;
         }
         return new ResponseEntity<>(foods, status);
     }
@@ -36,7 +36,7 @@ public class FoodController {
         if (food == null) {
             status = HttpStatus.NOT_FOUND;
         } else {
-            status = HttpStatus.FOUND;
+            status = HttpStatus.OK;
         }
         return new ResponseEntity<>(food, status);
     }

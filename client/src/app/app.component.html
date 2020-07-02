@@ -1,8 +1,8 @@
-<mat-toolbar color="accent">
-  <img src="assets/beer.png" />
+<mat-toolbar>
+  <img src="assets/beer.png" matTooltip="Icons made by https://www.flaticon.com/authors/smalllikeart from https://www.flaticon.com/"/>
   <span>Beer picker</span>
   <span class="spacer"></span>
-  <nav mat-tab-nav-bar color="primary" backgroundColor="accent" mat-stretch-tabs>
+  <nav mat-tab-nav-bar mat-stretch-tabs>
     <a mat-tab-link *ngFor="let link of links" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
       [active]="rla.isActive"> {{link.label}} </a>
   </nav>
@@ -11,5 +11,6 @@
   <button mat-button mat-mat-flat-button matTooltip="Register" *ngIf="this.user === false" (click)="register()" background-color="link">SIGN UP</button>
   <button mat-button mat-mat-flat-button matTooltip="Log out" *ngIf="this.user === true" (click)="logout()" background-color="primary">SIGN OUT</button>
 </mat-toolbar>
+<img class="background" src="../assets/background-primary.jpg"/>
 <router-outlet></router-outlet>
-Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+<!-- Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->

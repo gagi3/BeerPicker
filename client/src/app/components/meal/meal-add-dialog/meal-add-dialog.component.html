@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>ADD MEAL</h1>
+<div mat-dialog-content>
+  <p>Name</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="data.meal.name" required>
+  </mat-form-field>
+  <p>Type</p>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select [(value)]="data.meal.type">
+      <mat-option value="BREAKFAST">BREAKFAST</mat-option>
+      <mat-option value="LUNCH">LUNCH</mat-option>
+      <mat-option value="DINNER">DINNER</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Dishes</p>
+  <mat-form-field>
+    <mat-label>Dishes</mat-label>
+    <mat-select [(value)]="data.meal.dishes" multiple>
+      <mat-option *ngFor="let dish of dishes" [value]="dish">{{dish.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-flat-button color="primary" [mat-dialog-close]="data.meal">Submit</button>
+  <button mat-button mat-flat-button color="accent" (click)="close()" cdkFocusInitial>Close</button>
+</div>

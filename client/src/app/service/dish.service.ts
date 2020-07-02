@@ -15,7 +15,7 @@ export class DishService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Dish[]> {
-    return this.http.get<Dish[]>(this.URL, httpOptions);
+    return this.http.get<Dish[]>(this.URL + '/', httpOptions);
   }
 
   getOne(id: number): Observable<Dish> {

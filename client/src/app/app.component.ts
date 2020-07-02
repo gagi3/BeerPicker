@@ -17,31 +17,29 @@ export class AppComponent {
   activeLinkIndex = -1;
   user = false;
   constructor(private router: Router, private token: TokenStorageService, private dialog: MatDialog) {
-    console.log(this.token.getUsername());
     if (this.token.getUsername() !== null) {
-      console.log('true?');
       this.user = true;
       this.token.getAuthorities().forEach(auth => {
         if (auth === 'ROLE_ADMIN') {
           this.links = [
             {
               label: 'Foods',
-              link: '',
+              link: '/food',
               index: 0
             },
             {
               label: 'Dishes',
-              link: '',
+              link: '/dish',
               index: 1
             },
             {
               label: 'Meals',
-              link: '',
+              link: '/meal',
               index: 2
             },
             {
               label: 'Beers',
-              link: '',
+              link: '/beer',
               index: 3
             },
             {
@@ -69,7 +67,7 @@ export class AppComponent {
       this.links = [
         {
           label: 'Browse beers',
-          link: '',
+          link: '/beer',
           index: 0
         }
       ]

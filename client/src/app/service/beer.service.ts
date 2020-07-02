@@ -14,7 +14,7 @@ export class BeerService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Beer[]> {
-    return this.http.get<Beer[]>(this.URL, httpOptions);
+    return this.http.get<Beer[]>(this.URL + '/', httpOptions);
   }
 
   getOne(id: number): Observable<Beer> {

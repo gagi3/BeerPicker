@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>ADD DISH</h1>
+<div mat-dialog-content>
+  <p>Name</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="data.dish.name" required>
+  </mat-form-field>
+  <p>Type</p>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select [(value)]="data.dish.type">
+      <mat-option value="APPETIZER">APPETIZER</mat-option>
+      <mat-option value="SOUP">SOUP</mat-option>
+      <mat-option value="MAIN">MAIN</mat-option>
+      <mat-option value="SALAD">SALAD</mat-option>
+      <mat-option value="DESSERT">DESSERT</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Cuisine</p>
+  <mat-form-field>
+    <mat-label>Cuisine</mat-label>
+    <mat-select [(value)]="data.dish.cuisine">
+      <mat-option value="ITALIAN">ITALIAN</mat-option>
+      <mat-option value="FRENCH">FRENCH</mat-option>
+      <mat-option value="MEXICAN">MEXICAN</mat-option>
+      <mat-option value="AMERICAN">AMERICAN</mat-option>
+      <mat-option value="SERBIAN">SERBIAN</mat-option>
+      <mat-option value="GREEK">GREEK</mat-option>
+      <mat-option value="CHINESE">CHINESE</mat-option>
+      <mat-option value="ENGLISH">ENGLISH</mat-option>
+      <mat-option value="INDIAN">INDIAN</mat-option>
+      <mat-option value="IRISH">IRISH</mat-option>
+      <mat-option value="ITALIAN_AMERICAN">ITALIAN AMERICAN</mat-option>
+      <mat-option value="MEDITERRANEAN">MEDITERRANEAN</mat-option>
+      <mat-option value="TURKISH">TURKISH</mat-option>
+      <mat-option value="SPANISH">SPANISH</mat-option>
+      <mat-option value="GERMAN">GERMAN</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Preparation</p>
+  <mat-form-field>
+    <mat-label>Preparation</mat-label>
+    <mat-select [(value)]="data.dish.preparation" multiple>
+      <mat-option value="BAKING">BAKING</mat-option>
+      <mat-option value="BROILING">BROILING</mat-option>
+      <mat-option value="FRYING">FRYING</mat-option>
+      <mat-option value="ROASTING">ROASTING</mat-option>
+      <mat-option value="SMOKING">SMOKING</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Saltiness index</p>
+  <mat-form-field>
+    <mat-label>Saltiness index</mat-label>
+    <input matInput type="text" [(ngModel)]="data.dish.saltinessIndex" required>
+  </mat-form-field>
+  <p>Spiciness index</p>
+  <mat-form-field>
+    <mat-label>Spiciness index</mat-label>
+    <input matInput type="text" [(ngModel)]="data.dish.spicinessIndex" required>
+  </mat-form-field>
+  <p>Sweetness index</p>
+  <mat-form-field>
+    <mat-label> index</mat-label>
+    <input matInput type="text" [(ngModel)]="data.dish.sweetnessIndex" required>
+  </mat-form-field>
+  <p>Sourness index</p>
+  <mat-form-field>
+    <mat-label>Sourness index</mat-label>
+    <input matInput type="text" [(ngModel)]="data.dish.sournessIndex" required>
+  </mat-form-field>
+  <p>Bitterness index</p>
+  <mat-form-field>
+    <mat-label>Bitterness index</mat-label>
+    <input matInput type="text" [(ngModel)]="data.dish.bitternessIndex" required>
+  </mat-form-field>
+  <p>Ingredients</p>
+  <mat-form-field>
+    <mat-label>Ingredients</mat-label>
+    <mat-select [(value)]="data.dish.ingredients" multiple>
+      <mat-option *ngFor="let f of food" [value]="f">{{f.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-flat-button color="primary" [mat-dialog-close]="data.dish">Submit</button>
+  <button mat-button mat-flat-button color="accent" (click)="close()" cdkFocusInitial>Close</button>
+</div>
