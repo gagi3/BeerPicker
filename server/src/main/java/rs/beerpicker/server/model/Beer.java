@@ -18,7 +18,7 @@ public class Beer {
     private String name;
     @Column(nullable = false)
     private Double strength;
-    @ElementCollection(targetClass = BeerFlavour.class)
+    @ElementCollection(targetClass = BeerFlavour.class, fetch = FetchType.EAGER)
     @CollectionTable
     @Enumerated(EnumType.STRING)
     private List<BeerFlavour> flavours;

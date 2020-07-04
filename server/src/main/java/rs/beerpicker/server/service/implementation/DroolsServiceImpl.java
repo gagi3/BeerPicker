@@ -5,14 +5,11 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.beerpicker.server.model.Beer;
-import rs.beerpicker.server.model.Dish;
-import rs.beerpicker.server.model.Food;
 import rs.beerpicker.server.model.Meal;
 import rs.beerpicker.server.service.abstraction.BeerService;
 import rs.beerpicker.server.service.abstraction.DroolsService;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
