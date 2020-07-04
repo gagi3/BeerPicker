@@ -1,0 +1,7 @@
+package drools;
+dialect  "mvel"
+
+rule "xmeal"
+    when
+    then
+end
