@@ -1,32 +1,33 @@
+<h1>RECOMMENDATION(s)</h1>
 <mat-table mat-table #table [dataSource]="data.beer" matSort>
   <ng-container matColumnDef="name">
     <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
     <mat-cell mat-cell *matCellDef="let element">
-      {{element.name}}
+      {{element.beer.name}}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="strength">
     <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Strength</mat-header-cell>
     <mat-cell mat-cell *matCellDef="let element">
-      {{element.strength}}
+      {{element.beer.strength}}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="type">
     <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
     <mat-cell mat-cell *matCellDef="let element">
-      {{element.type}}
+      {{element.beer.type}}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="style">
     <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Style</mat-header-cell>
     <mat-cell mat-cell *matCellDef="let element">
-      {{element.style}}
+      {{element.beer.style}}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="flavours">
     <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Flavours</mat-header-cell>
     <mat-cell mat-cell *matCellDef="let element">
-      {{element.flavours}}
+      {{element.beer.flavours}}
     </mat-cell>
   </ng-container>
 

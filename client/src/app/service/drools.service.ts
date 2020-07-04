@@ -17,14 +17,6 @@ export class DroolsService {
 
   constructor(private http: HttpClient) { }
 
-  recommendByFood(food: Food): Observable<Beer[]> {
-    return this.http.post<Beer[]>(this.URL + '/recommend-by-food', food, httpOptions);
-  }
-
-  recommendByDish(dish: Dish): Observable<Beer[]> {
-    return this.http.post<Beer[]>(this.URL + '/recommend-by-dish', dish, httpOptions);
-  }
-
   recommendByMeal(meal: Meal): Observable<Beer[]> {
     return this.http.post<Beer[]>(this.URL + '/recommend-by-meal', meal, httpOptions);
   }

@@ -1,7 +1,453 @@
 package drools;
+import rs.beerpicker.server.model.*
+import rs.beerpicker.server.dto.*
+import rs.beerpicker.server.service.abstraction.*
+import java.util.List
+import java.util.ArrayList
+import java.util.Arrays
 dialect  "mvel"
 
-rule "xmeal"
+// These rules are for beer TYPES and STYLES.
+// The input for these rules are beers and a meal.
+// The output for these rules is a recommendation, which consists of a beer and a factor, which it will get inserted into working memory.
+// Beers and meals with dishes with foods that satisfy one of these conditions will trigger these rules.
+// At the end, beers with these types/styles will be recommended.
+// Alongside them, a factor will be calculated.
+// Factor consists of two things:
+// 1. How many dishes in a meal match with set conditions.
+// 2. How many foods in given dishes match with set conditions.
+// That way, the recommendation that matched the most conditions will be recommended.
+
+rule "STOUT"
+    salience 5
     when
+        $beer: Beer(type == BeerType.STOUT)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "steak" || name == "pulled pork" || name == "spreadable cheese" || name == "camembert" || name == "brie" || name == "hard cheese" || name == "parmesan" || name == "pecorino" || name == "marbled cheese" || name == "roquefort" || name == "gorgonzola" || name == "blue cheese" || name == "oysters" || name == "crab" || name == "salmon" || name == "strawberries" || name == "dark chocolate") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, cuisine == Cuisine.IRISH || cuisine == Cuisine.ENGLISH || preparation contains Preparation.SMOKING || preparation contains Preparation.ROASTING) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
     then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "LAGER"
+    salience 5
+    when
+        $beer: Beer(type == BeerType.LAGER)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "burger" || name == "roast chicken" || name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, type == DishType.SALAD || type == DishType.SOUP || spicinessIndex > 2 || cuisine == Cuisine.SERBIAN || cuisine == Cuisine.GERMAN || cuisine == Cuisine.AMERICAN || cuisine == Cuisine.MEXICAN || preparation contains Preparation.SMOKING || preparation contains Preparation.BROILING || preparation contains Preparation.BAKING || preparation contains Preparation.FRYING) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "IPA"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.IPA)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "semi-hard cheese" || name == "cheddar" || name == "lobster" || name == "salmon" || name == "sushi") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, saltinessIndex > 3 || spicinessIndex > 4 || cuisine == Cuisine.INDIAN ||  cuisine == Cuisine.AMERICAN) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "PALE ALE"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.PALE, type == BeerType.ALE)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "burger" || name == "pulled pork" || name == "spreadable cheese" || name == "camembert" || name == "brie" || name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack" || name == "salmon") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, spicinessIndex > 4) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "ALE"
+    salience 5
+    when
+        $beer: Beer(type == BeerType.ALE)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "roast chicken") from $ingredients,
+            count($f)
+        )
+        eval($is > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $is.intValue());
+        insert(recommendation)
+end
+
+
+rule "BROWN ALE"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.BROWN, type == BeerType.ALE)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "apple" || name == "salmon" || name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack") from $ingredients,
+            count($f)
+        )
+        eval($is > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $is.intValue());
+        insert(recommendation)
+end
+
+rule "AMBER ALE"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.AMBER, type == BeerType.ALE)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "washed-rind cheese" || name == "gouda" || name == "havarti" || name == "colby" || name == "monterey jack" || name == "roast chicken" || name == "turkey") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, spicinessIndex > 2, cuisine == Cuisine.FRENCH) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "RED ALE"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.AMBER, type == BeerType.ALE)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "steak") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, cuisine == Cuisine.FRENCH) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "WHEAT"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.WHEAT)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "burger" || name == "soft cheese" || name == "cottage cheese" || name == "cream cheese" || name == "ricotta" || name == "curd cheese" || name == "mozzarella" || name == "provolone" || name == "mussels" || name == "orange" || name == "milk chocolate") from $ingredients,
+            count($f)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, type == DishType.SALAD || cuisine == Cuisine.GERMAN || cuisine == Cuisine.SERBIAN) from $ds,
+            count($x)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        insert(recommendation)
+end
+
+rule "BLONDE"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.BLONDE)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, preparation contains Preparation.FRYING || cuisine == Cuisine.FRENCH || cuisine == Cuisine.SERBIAN) from $ds,
+            count($x)
+        )
+        eval($dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue());
+        insert(recommendation)
+end
+
+rule "DARK"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.DARK)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, sweetnessIndex > 3 || cuisine == Cuisine.GERMAN || cuisine == Cuisine.IRISH) from $ds,
+            count($x)
+        )
+        eval($dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue());
+        insert(recommendation)
+end
+
+rule "CREAM"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.CREAM)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, cuisine == Cuisine.IRISH) from $ds,
+            count($x)
+        )
+        eval($dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $dn.intValue());
+        insert(recommendation)
+end
+
+rule "STRONG"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.CREAM)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, cuisine == Cuisine.IRISH) from $ds,
+            count($x)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "hard cheese" || name == "parmesan" || name == "pecorino") from $ingredients,
+            count($f)
+        )
+        eval($is + $dn > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $is.intValue() + $dn.intValue());
+        insert(recommendation)
+end
+
+rule "PILSNER"
+    salience 5
+    when
+        $beer: Beer(style == BeerStyle.PILSNER)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "sushi" || name == "lobster" || name == "semi-hard cheese" || name == "cheddar" || name == "spreadable cheese" || name == "camembert" || name == "brie") from $ingredients,
+            count($f)
+        )
+        eval($is > 0)
+    then
+        Recommendation recommendation = new Recommendation($beer, $is.intValue());
+        insert(recommendation)
+end
+
+// These rules are for beer FLAVOURS.
+// Input for these rules are recommendations that are the output of previous rules which were inserted into working memory, and a meal.
+// There is no output; modification of a recommendation will be performed instead.
+// Recommendations and meals with dishes with foods that satisfy one of these conditions will trigger these rules.
+// The factor will again be calculated, and added to the previous value.
+
+rule "FRUIT"
+    salience 3
+    no-loop
+    when
+        $recommendation: Recommendation($beer: beer, $factor: factor, $beer.flavours contains BeerFlavour.FRUIT || $beer.flavours contains BeerFlavour.DRIED_CHERRIES || $beer.flavours contains BeerFlavour.APPLE || $beer.flavours contains BeerFlavour.BANANA || $beer.flavours contains BeerFlavour.BERRIES || $beer.flavours contains BeerFlavour.PEAR || $beer.flavours contains BeerFlavour.PINEAPPLE || $beer.flavours contains BeerFlavour.PLUM || $beer.flavours contains BeerFlavour.RAISINS)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, sweetnessIndex > 3) from $ds,
+            count($x)
+        )
+        eval($dn > 0)
+    then
+        modify($recommendation){
+            setFactor($factor + $dn.intValue())
+        }
+end
+
+rule "CARAMEL"
+    salience 3
+    no-loop
+    when
+        $recommendation: Recommendation($beer: beer, $factor: factor, $beer.flavours contains BeerFlavour.CARAMEL)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "apple") from $ingredients,
+            count($f)
+        )
+        eval($is > 0)
+    then
+        modify($recommendation){
+            setFactor($factor + $is.intValue())
+        }
+end
+
+rule "CITRUS"
+    salience 3
+    no-loop
+    when
+        $recommendation: Recommendation($beer: beer, $factor: factor, $beer.flavours contains BeerFlavour.CITRUS)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "sushi" || name == "orange" || name == "milk chocolate" || name == "clams" || name == "lobster") from $ingredients,
+            count($f)
+        )
+        eval($is > 0)
+    then
+        modify($recommendation){
+            setFactor($factor + $is.intValue())
+        }
+end
+
+// These rules are for beer STRENGTH.
+// Input for these rules are recommendations that are the output of previous rules which were inserted into working memory, and a meal.
+// There is no output; modification of a recommendation will be performed instead.
+// Recommendations and meals with dishes with foods that satisfy one of these conditions will trigger these rules.
+// The factor will again be calculated, and added to the previous value.
+
+rule "LIGHT"
+    salience 1
+    no-loop
+    when
+        $recommendation: Recommendation($beer: beer, $factor: factor, $beer.strength < 4.5)
+        $meal: Meal($mealType: type, $dishes: dishes)
+        $ds: List() from accumulate(
+            Dish($d: this) from $dishes,
+            collectList($d)
+        )
+        $dn: Number() from accumulate(
+            Dish($x: this, type == DishType.DESSERT || type == DishType.SOUP) from $ds,
+            count($x)
+        )
+        $is: Number() from accumulate(
+            Dish($ingredients: ingredients) from $ds and
+            Food($f: this, name == "sushi") from $ingredients,
+            count($f)
+        )
+        eval($is + $dn > 0)
+    then
+        modify($recommendation){
+            setFactor($factor + $dn.intValue() + $is.intValue())
+        }
+end
+
+// This rule is for CHOOSING THE MOST RECOMMENDED BEER(s).
+// Input for this rule are recommendations that are the output of previous rules which were inserted into working memory and modified.
+// There is no output; deletion of every recommendation with inferior factor from working memory will be performed instead.
+// All recommendations inserted into working memory will trigger this rule.
+// Only the beer(s) with the biggest factor will remain in working memory.
+
+rule "CHOOSE BEST"
+    salience -100
+    no-loop
+//    lock-on-active
+    when
+        $recommendation: Recommendation($factor: factor)
+        (Recommendation($factor<factor))
+    then
+        delete($recommendation);
+end
+
+query getRecommendations
+    $recommendation: Recommendation()
 end

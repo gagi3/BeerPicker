@@ -5,9 +5,9 @@ import rs.beerpicker.server.model.Food;
 import rs.beerpicker.server.model.Meal;
 
 public interface DroolsService {
-    Object recommendByFood(Food food);
-
-    Object recommendByDish(Dish dish);
+//    Object recommendByFood(Food food);
+//
+//    Object recommendByDish(Dish dish);
 
     Object recommendByMeal(Meal meal);
 }

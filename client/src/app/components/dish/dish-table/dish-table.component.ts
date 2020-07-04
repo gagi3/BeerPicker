@@ -33,8 +33,7 @@ export class DishTableComponent implements OnInit {
     'bitternessIndex',
     'ingredients',
     'edit',
-    'delete',
-    'recommend'
+    'delete'
   ];
 
   constructor(private service: DishService, private dialog: MatDialog, private drools: DroolsService) { }
@@ -97,16 +96,6 @@ export class DishTableComponent implements OnInit {
   delete(dish: Dish) {
     this.service.delete(dish.id).subscribe(data => {
       window.alert(data);
-    });
-  }
-  recommend(dish: Dish) {
-    this.drools.recommendByDish(dish).subscribe(data => {
-      const beer = data;
-      this.dialog.open(BeerTableDialogComponent, {
-        data: {
-          beer
-        }
-      });
     });
   }
 }

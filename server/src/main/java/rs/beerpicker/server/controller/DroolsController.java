@@ -18,17 +18,17 @@ public class DroolsController {
     @Autowired
     private DroolsService droolsService;
 
-    @PostMapping(value = "/recommend-by-food")
-    public ResponseEntity<?> recommendByFood(@RequestBody Food food) {
-        Object beers = droolsService.recommendByFood(food);
-        return new ResponseEntity<>(beers, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/recommend-by-dish")
-    public ResponseEntity<?> recommendByDish(@RequestBody Dish dish) {
-        Object beers = droolsService.recommendByDish(dish);
-        return new ResponseEntity<>(beers, HttpStatus.OK);
-    }
+//    @PostMapping(value = "/recommend-by-food")
+//    public ResponseEntity<?> recommendByFood(@RequestBody Food food) {
+//        Object beers = droolsService.recommendByFood(food);
+//        return new ResponseEntity<>(beers, HttpStatus.OK);
+//    }
+//
+//    @PostMapping(value = "/recommend-by-dish")
+//    public ResponseEntity<?> recommendByDish(@RequestBody Dish dish) {
+//        Object beers = droolsService.recommendByDish(dish);
+//        return new ResponseEntity<>(beers, HttpStatus.OK);
+//    }
 
     @PostMapping(value = "/recommend-by-meal")
     public ResponseEntity<?> recommendByMeal(@RequestBody Meal meal) {

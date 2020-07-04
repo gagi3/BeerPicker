@@ -37,15 +37,6 @@
       </button>
     </mat-cell>
   </ng-container>
-  <ng-container matColumnDef="recommend">
-    <mat-header-cell mat-header-cell *matHeaderCellDef>Recommend</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let element">
-      <button mat-button mat-flat-button color="primary" aria-label="Recommend"
-        matTooltip="Recommend" (click)="recommend(element)">
-        RECOMMEND
-      </button>
-    </mat-cell>
-  </ng-container>
   <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
   <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>

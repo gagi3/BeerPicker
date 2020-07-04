@@ -24,8 +24,7 @@ export class FoodTableComponent implements OnInit {
     'name',
     'type',
     'edit',
-    'delete',
-    'recommend'
+    'delete'
   ];
 
   constructor(private service: FoodService, private dialog: MatDialog, private drools: DroolsService) { }
@@ -80,16 +79,6 @@ export class FoodTableComponent implements OnInit {
   delete(food: Food) {
     this.service.delete(food.id).subscribe(data => {
       window.alert(data);
-    });
-  }
-  recommend(food: Food) {
-    this.drools.recommendByFood(food).subscribe(data => {
-      const beer = data;
-      this.dialog.open(BeerTableDialogComponent, {
-        data: {
-          beer
-        }
-      });
     });
   }
 }
