@@ -38,7 +38,8 @@ rule "STOUT"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("STOUT");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -62,7 +63,8 @@ rule "LAGER"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("LAGER");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -86,7 +88,8 @@ rule "IPA"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("IPA");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -110,7 +113,8 @@ rule "PALE ALE"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("PALE ALE");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -130,7 +134,8 @@ rule "ALE"
         )
         eval($is > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $is.intValue());
+        System.out.println("ALE");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($is.intValue()));
         insert(recommendation)
 end
 
@@ -151,7 +156,8 @@ rule "BROWN ALE"
         )
         eval($is > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $is.intValue());
+        System.out.println("BROWN ALE");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($is.intValue()));
         insert(recommendation)
 end
 
@@ -175,14 +181,15 @@ rule "AMBER ALE"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("AMBER ALE");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
 rule "RED ALE"
     salience 5
     when
-        $beer: Beer(style == BeerStyle.AMBER, type == BeerType.ALE)
+        $beer: Beer(style == BeerStyle.RED, type == BeerType.ALE)
         $meal: Meal($mealType: type, $dishes: dishes)
         $ds: List() from accumulate(
             Dish($d: this) from $dishes,
@@ -199,7 +206,8 @@ rule "RED ALE"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("RED ALE");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -223,7 +231,8 @@ rule "WHEAT"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue() + $is.intValue());
+        System.out.println("WHEAT");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -242,7 +251,8 @@ rule "BLONDE"
         )
         eval($dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue());
+        System.out.println("BLONDE");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue()));
         insert(recommendation)
 end
 
@@ -261,7 +271,8 @@ rule "DARK"
         )
         eval($dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue());
+        System.out.println("DARK");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue()));
         insert(recommendation)
 end
 
@@ -280,7 +291,8 @@ rule "CREAM"
         )
         eval($dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $dn.intValue());
+        System.out.println("CREAM");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue()));
         insert(recommendation)
 end
 
@@ -304,7 +316,8 @@ rule "STRONG"
         )
         eval($is + $dn > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $is.intValue() + $dn.intValue());
+        System.out.println("STRONG");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($dn.intValue() + $is.intValue()));
         insert(recommendation)
 end
 
@@ -324,7 +337,8 @@ rule "PILSNER"
         )
         eval($is > 0)
     then
-        Recommendation recommendation = new Recommendation($beer, $is.intValue());
+        System.out.println("PILSNER");
+        Recommendation recommendation = new Recommendation($beer, (int)2*($is.intValue()));
         insert(recommendation)
 end
 
@@ -348,11 +362,14 @@ rule "FRUIT"
             Dish($x: this, sweetnessIndex > 3) from $ds,
             count($x)
         )
-        eval($dn > 0)
+        eval($dn > 1)
     then
-        modify($recommendation){
-            setFactor($factor + $dn.intValue())
-        }
+        System.out.println("FRUITY");
+        $recommendation.setFactor($factor + $dn.intValue());
+        update($recommendation)
+//        modify($recommendation){
+//            setFactor($factor + $dn.intValue())
+//        }
 end
 
 rule "CARAMEL"
@@ -370,18 +387,21 @@ rule "CARAMEL"
             Food($f: this, name == "apple") from $ingredients,
             count($f)
         )
-        eval($is > 0)
+        eval($is > 1)
     then
-        modify($recommendation){
-            setFactor($factor + $is.intValue())
-        }
+        System.out.println("CARAMEL");
+        $recommendation.setFactor($factor + $is.intValue());
+        update($recommendation)
+//        modify($recommendation){
+//            setFactor($factor + $dn.intValue())
+//        }
 end
 
 rule "CITRUS"
     salience 3
     no-loop
     when
-        $recommendation: Recommendation($beer: beer, $factor: factor, $beer.flavours contains BeerFlavour.CITRUS)
+        $recommendation: Recommendation($beer: beer, $factor: factor, $beer.flavours not contains BeerFlavour.CITRUS)
         $meal: Meal($mealType: type, $dishes: dishes)
         $ds: List() from accumulate(
             Dish($d: this) from $dishes,
@@ -392,11 +412,14 @@ rule "CITRUS"
             Food($f: this, name == "sushi" || name == "orange" || name == "milk chocolate" || name == "clams" || name == "lobster") from $ingredients,
             count($f)
         )
-        eval($is > 0)
+        eval($is > 1)
     then
-        modify($recommendation){
-            setFactor($factor + $is.intValue())
-        }
+        System.out.println("CITRUS");
+        $recommendation.setFactor($factor + $is.intValue());
+        update($recommendation)
+//        modify($recommendation){
+//            setFactor($factor + $dn.intValue())
+//        }
 end
 
 // These rules are for beer STRENGTH.
@@ -426,9 +449,12 @@ rule "LIGHT"
         )
         eval($is + $dn > 0)
     then
-        modify($recommendation){
-            setFactor($factor + $dn.intValue() + $is.intValue())
-        }
+        System.out.println("LIGHT");
+        $recommendation.setFactor($factor + $dn.intValue() + $is.intValue());
+        update($recommendation)
+//        modify($recommendation){
+//            setFactor($factor + $dn.intValue())
+//        }
 end
 
 // This rule is for CHOOSING THE MOST RECOMMENDED BEER(s).
@@ -445,6 +471,7 @@ rule "CHOOSE BEST"
         $recommendation: Recommendation($factor: factor)
         (Recommendation($factor<factor))
     then
+        System.out.println($factor);
         delete($recommendation);
 end
 

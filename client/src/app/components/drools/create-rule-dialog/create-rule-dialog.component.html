@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>ADD RULE</h1>
+<p>
+  Please note that the format and syntax must be valid. No errors should be present.
+</p>
+<p>
+  We don't take any responsibility if your rules break the system.
+</p>
+<div mat-dialog-content>
+  <p>Name</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [(ngModel)]="data.rule.name" required>
+  </mat-form-field>
+  <p>Agenda group</p>
+  <mat-form-field>
+    <mat-label>Agenda group</mat-label>
+    <input matInput type="text" [(ngModel)]="data.rule.agendaGroup" required>
+  </mat-form-field>
+  <p>Salience</p>
+  <mat-form-field>
+    <mat-label>Salience</mat-label>
+    <input matInput type="number" [(ngModel)]="data.rule.salience" required>
+  </mat-form-field>
+  <p>Lock on active</p>
+  <mat-form-field>
+    <mat-label>Lock on active</mat-label>
+    <mat-select [(value)]="data.rule.lockOnActive">
+      <mat-option [value]="true">True</mat-option>
+      <mat-option [value]="false">False</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>No loop</p>
+  <mat-form-field>
+    <mat-label>No loop</mat-label>
+    <mat-select [(value)]="data.rule.noLoop">
+      <mat-option [value]="true">True</mat-option>
+      <mat-option [value]="false">False</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>When (LHS)</p>
+  <mat-form-field>
+    <mat-label>When</mat-label>
+    <textarea matInput [(ngModel)]="data.rule.when" required></textarea>
+  </mat-form-field>
+  <p>Then (RHS)</p>
+  <mat-form-field>
+    <mat-label>Then</mat-label>
+    <textarea matInput [(ngModel)]="data.rule.then" required></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-flat-button color="primary" [mat-dialog-close]="data.rule">Submit</button>
+  <button mat-button mat-flat-button color="accent" (click)="close()" cdkFocusInitial>Close</button>
+</div>

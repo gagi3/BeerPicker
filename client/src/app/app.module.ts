@@ -29,6 +29,7 @@ import { DishEditDialogComponent } from './components/dish/dish-edit-dialog/dish
 import { DishTableComponent } from './components/dish/dish-table/dish-table.component';
 import { FoodAddDialogComponent } from './components/food/food-add-dialog/food-add-dialog.component';
 import { FoodEditDialogComponent } from './components/food/food-edit-dialog/food-edit-dialog.component';
+import { CreateRuleDialogComponent } from './components/drools/create-rule-dialog/create-rule-dialog.component';
 import { FoodTableComponent } from './components/food/food-table/food-table.component';
 import { MealAddDialogComponent } from './components/meal/meal-add-dialog/meal-add-dialog.component';
 import { MealEditDialogComponent } from './components/meal/meal-edit-dialog/meal-edit-dialog.component';
@@ -36,6 +37,8 @@ import { MealTableComponent } from './components/meal/meal-table/meal-table.comp
 import { BeerTableDialogComponent } from './components/beer/beer-table-dialog/beer-table-dialog.component';
 import { DishTableDialogComponent } from './components/dish/dish-table-dialog/dish-table-dialog.component';
 import { FoodTableDialogComponent } from './components/food/food-table-dialog/food-table-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
    declarations: [
@@ -61,16 +64,18 @@ import { FoodTableDialogComponent } from './components/food/food-table-dialog/fo
 
       MealAddDialogComponent,
       MealEditDialogComponent,
-      MealTableComponent
+      MealTableComponent,
+
+      CreateRuleDialogComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
       HttpClientModule,
+      MatFormFieldModule,
       MatTableModule,
       MatPaginatorModule,
-      MatInputModule,
       MatSortModule,
       MatToolbarModule,
       MatTabsModule,
@@ -78,10 +83,12 @@ import { FoodTableDialogComponent } from './components/food/food-table-dialog/fo
       MatButtonModule,
       MatDialogModule,
       MatSelectModule,
-      MatFormFieldModule,
+      MatRadioModule,
+      MatInputModule,
       FormsModule,
       MatTooltipModule,
-      MatExpansionModule
+      MatExpansionModule,
+      MatCheckboxModule
    ],
    providers: [],
    bootstrap: [

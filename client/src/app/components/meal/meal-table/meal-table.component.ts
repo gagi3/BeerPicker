@@ -34,10 +34,12 @@ export class MealTableComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe(data => {
-      this.meals = data;
-      this.dataSource = new MatTableDataSource(this.meals);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      if (data !== undefined || data.length > 0 || data !== null) {
+        this.meals = data;
+        this.dataSource = new MatTableDataSource(this.meals);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
   applyFilter(event: Event) {

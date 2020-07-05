@@ -5,6 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SignInRequest } from './auth/sign-in-request';
+import { CreateRuleDialogComponent } from './components/drools/create-rule-dialog/create-rule-dialog.component';
+import { Rule } from './model/rule';
+import { DroolsService } from './service/drools.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +19,7 @@ export class AppComponent {
   links: any[];
   activeLinkIndex = -1;
   user = false;
-  constructor(private router: Router, private token: TokenStorageService, private dialog: MatDialog) {
+  constructor(private router: Router, private token: TokenStorageService, private dialog: MatDialog, private drools: DroolsService) {
     if (this.token.getUsername() !== null) {
       this.user = true;
       this.token.getAuthorities().forEach(auth => {
@@ -41,11 +44,6 @@ export class AppComponent {
               label: 'Beers',
               link: '/beer',
               index: 3
-            },
-            {
-              label: 'Rules',
-              link: '',
-              index: 4
             }
           ]
         } else if (auth === 'ROLE_USER') {
@@ -95,6 +93,23 @@ export class AppComponent {
   ngOnInit(): void {
     this.router.events.subscribe((res) => {
       this.activeLinkIndex = this.links.indexOf(this.links.find(tab => tab.link === '.' + this.router.url));
+    });
+  }
+  addRule() {
+    let rule = new Rule();
+    const dialogRef = this.dialog.open(CreateRuleDialogComponent, {
+      data: {
+        rule
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.drools.create(rule).subscribe(
+          data => {
+            window.alert(data);
+          }
+        );
+      }
     });
   }
 }

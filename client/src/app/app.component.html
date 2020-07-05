@@ -9,6 +9,7 @@
   <span class="spacer"></span>
   <button mat-button mat-mat-flat-button matTooltip="Log in" *ngIf="this.user === false" (click)="login()" background-color="primary" color="primary">SIGN IN</button>
   <button mat-button mat-mat-flat-button matTooltip="Register" *ngIf="this.user === false" (click)="register()" background-color="link">SIGN UP</button>
+  <button mat-button mat-mat-flat-button matTooltip="Add a new rule" *ngIf="this.user === true" (click)="addRule()" background-color="accent">ADD RULE</button>
   <button mat-button mat-mat-flat-button matTooltip="Log out" *ngIf="this.user === true" (click)="logout()" background-color="primary">SIGN OUT</button>
 </mat-toolbar>
 <img class="background" src="../assets/background-primary.jpg"/>

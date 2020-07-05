@@ -19,6 +19,6 @@ public class Meal {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MealType type;
-    @OneToMany
+    @ManyToMany
     private List<Dish> dishes;
 }

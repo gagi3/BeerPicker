@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import rs.beerpicker.server.dto.Rule;
 import rs.beerpicker.server.model.Meal;
 import rs.beerpicker.server.service.abstraction.DroolsService;
 
@@ -27,6 +28,12 @@ public class DroolsController {
 //        Object beers = droolsService.recommendByDish(dish);
 //        return new ResponseEntity<>(beers, HttpStatus.OK);
 //    }
+
+    @PostMapping(value = "/create")
+    public ResponseEntity<?> create(@RequestBody Rule rule) {
+        String response = droolsService.create(rule);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/recommend-by-meal")
     public ResponseEntity<?> recommendByMeal(@RequestBody Meal meal) {

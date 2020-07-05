@@ -31,10 +31,12 @@ export class FoodTableComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe(data => {
-      this.foods = data;
-      this.dataSource = new MatTableDataSource(this.foods);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      if (data !== undefined || data.length > 0 || data !== null) {
+        this.foods = data;
+        this.dataSource = new MatTableDataSource(this.foods);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
   applyFilter(event: Event) {

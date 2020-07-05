@@ -40,10 +40,12 @@ export class DishTableComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe(data => {
-      this.dishes = data;
-      this.dataSource = new MatTableDataSource(this.dishes);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      if (data !== undefined || data.length > 0 || data !== null) {
+        this.dishes = data;
+        this.dataSource = new MatTableDataSource(this.dishes);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
   applyFilter(event: Event) {

@@ -1,5 +1,6 @@
 package rs.beerpicker.server.service.abstraction;
 
+import rs.beerpicker.server.dto.Rule;
 import rs.beerpicker.server.model.Meal;
 
 public interface DroolsService {
@@ -8,4 +9,6 @@ public interface DroolsService {
 //    Object recommendByDish(Dish dish);
 
     Object recommendByMeal(Meal meal);
+
+    String create(Rule rule);
 }

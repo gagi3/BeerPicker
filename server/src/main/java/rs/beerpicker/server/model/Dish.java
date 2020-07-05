@@ -24,7 +24,7 @@ public class Dish {
     @Column
     @Enumerated(EnumType.STRING)
     private Cuisine cuisine;
-    @OneToMany
+    @ManyToMany
     private List<Food> ingredients;
     @Column
     @ElementCollection(targetClass = String.class)
